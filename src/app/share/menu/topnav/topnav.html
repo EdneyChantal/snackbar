@@ -1,0 +1,76 @@
+<nav class="navbar navbar-brand  bg-inverse navbar-fixed-top topnav">
+    <div class="collapse navbar-toggleable-xs clearfix text-center">
+        <img [src]="config.pathFigLogo" width="50px" class="navbar-brand user-avatar" />
+       <a class="navbar-brand" routerLink="/menu" [routerLinkActive]="['router-link-active']" >{{config.descriptionSidebar}}</a>
+        
+        <cp-loading [display]="authservice.display"></cp-loading>
+
+           <div ngbDropdown class="navbar-right pull-xs-right my-but-menu" >
+               <button class="btn btn-primary" id="dropdownMenu4" ngbDropdownToggle>
+                   <i class="fa fa-bars"></i> 
+                </button>
+             
+            </div>
+
+            <div ngbDropdown class="navbar-right pull-xs-right my-but-menu" >
+               <button class="btn btn-primary" id="dropdownMenu5" ngbDropdownToggle>
+                   <i class="fa fa-bars"></i> 
+                </button>
+             
+            </div>
+
+        <ul class="nav navbar-nav top-nav navbar-right pull-xs-right top-right-nav">
+            <div class="form-inline">
+            <li ngbDropdown class="nav-item">
+                    <button  id="dropdownMenu3" class="btn btn-outline-primary" ngbDropdownToggle>
+                       <i class="fa fa-bank"></i> <span *ngIf="!authservice.chosenEstablish">Escolha um Estabelecimento</span>
+                                                   <span *ngIf="authservice.chosenEstablish">{{authservice.chosenEstablish.establishName}}
+                                                       </span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu3">
+                        <li *ngFor="let establish of authservice.establishments">
+                            <a href="javascript:;" class="dropdown-item" (click)="authservice.chooseEstablish(establish)">{{establish.establishName}} </a>
+                        </li>
+                    </ul>
+            </li>
+            <li ngbDropdown class="nav-item">
+                    <button  id="dropdownMenu2" class="btn btn-outline-primary" ngbDropdownToggle>
+                       <i class="fa fa-group"></i> <span *ngIf="!authservice.chosenCompany">Escolha uma Empresa</span>
+                                                   <span *ngIf="authservice.chosenCompany">{{authservice.chosenCompany.companyName}}
+                                                       </span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li *ngFor="let company of authservice.companys">
+                            <a href="javascript:;" class="dropdown-item" (click)="authservice.chooseCompany(company)">{{company.companyName}} </a>
+                        </li>
+                    </ul>
+            </li>
+            <li ngbDropdown class="nav-item" >
+                
+                <button class="btn btn-outline-primary" id="dropdownMenu1" ngbDropdownToggle>
+                   <i class="fa fa-user"></i> 
+                    {{authservice.user.firstName}}</button>
+             
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li>
+                        <a class="dropdown-item" href="javascript:;"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="javascript:;"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="javascript:;"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a class="dropdown-item" href="javascript:;" (click) = "logOut()">
+                            <i class="fa fa-fw fa-power-off"></i> Log Out
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            </div>  
+
+        </ul>
+    </div>
+</nav>

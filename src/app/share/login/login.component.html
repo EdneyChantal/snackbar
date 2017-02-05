@@ -1,0 +1,27 @@
+<div class="login-page">
+	<div class="row">
+		<div class="col-lg-4 col-lg-offset-4">
+        	<!--<img src="assets/img/logo-onguardsystem.png" width="150px" class="user-avatar" />
+			<h1>Controle de Estacionamento</h1>-->
+			<form #flogin="ngForm">
+				<div class="form-content">
+					<div class="form-group"  >
+						<input type="text" [(ngModel)]="login.name" name="name " class="form-control input-underline input-lg" required placeholder="Email">
+					</div>
+
+					<div class="form-group">
+						<input type="password" [(ngModel)]="login.password" name="password"  class="form-control input-underline input-lg" placeholder="Password">
+					</div>
+				</div>
+				<button class="btn rounded-btn" [disabled]="flogin.form.invalid" type="submit" (click)="mLogin()"> Log in </button>				
+				&nbsp;
+				<a  class="btn rounded-btn" routerLink="/signup">Register</a>
+				<br/>
+				<br/>
+				<div class="alert alert-danger" *ngIf="authservice.lastErr != null">{{authservice.lastErr}}</div>
+			</form>
+			<cp-loading [display]="authservice.display"></cp-loading>
+			
+		</div>	
+	</div>
+</div>
