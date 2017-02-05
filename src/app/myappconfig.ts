@@ -17,7 +17,7 @@ const item3:ItemSidebarMenu={classIcon:'fa-blind',
 
 export const snackbarConfig: AppConfig = {
   siglaApp:'LUFA',
-  refAppRoot:'BaseSystem',
+  refAppRoot:'BaseCompanys',
   descriptionSidebar:'Gestão de Restaurante',
   pathFigLogo:'assets/img/logo-onguardsystem.png',
   itensMenu:[]
