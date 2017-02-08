@@ -8,6 +8,7 @@ import { AngularFireModule,AuthProviders,AuthMethods } from 'angularfire2';
 import { AppRoutingModule }  from './share/app-routing.module';
 import { AuthService } from './share/auth.service';
 import { AppComponent } from './app.component';
+import {PeopleModule}  from './people/people.module';
 
 //common in core pratica.com
 import {PraticaCore}  from  './share/pratica-core.service'
@@ -42,6 +43,7 @@ const myFirebaseAuthConfig = {
     HttpModule,
     LoginModule,
     AppRoutingModule,
+    PeopleModule ,
     AngularFireModule.initializeApp(firebaseConfig,myFirebaseAuthConfig),
     NgbModule.forRoot()
   ],

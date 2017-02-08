@@ -2,9 +2,9 @@ import { OpaqueToken } from '@angular/core';
 import {AppConfig,ItemSidebarMenu} from './share/app-config'
 
 
-const item1:ItemSidebarMenu={classIcon:'fa-table',
-                             link:'/menu/contract',
-                             name:'Contratos'};
+const item1:ItemSidebarMenu={classIcon:'fa-male',
+                             link:'/menu/people',
+                             name:'Clientes'};
 const item2:ItemSidebarMenu={classIcon:'fa-gear',
                              link:'/menu/param',
                              name:'Parametro'};
@@ -20,7 +20,7 @@ export const snackbarConfig: AppConfig = {
   refAppRoot:'BaseCompanys',
   descriptionSidebar:'Gestão de Restaurante',
   pathFigLogo:'assets/img/logo-onguardsystem.png',
-  itensMenu:[]
+  itensMenu:[item1]
 };
 
 //export let APP_CONFIG = new OpaqueToken('app.config');
