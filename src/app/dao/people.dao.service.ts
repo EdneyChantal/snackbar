@@ -91,6 +91,8 @@ export class PeopleDaoService  {
         pm.cnpj = this.pcore.maskToNumber(pv.cnpj);
         pm.cpf = this.pcore.maskToNumber(pv.cnpj); 
 
+        pm =  this.pcore.prepareModel(pm);
+
      }
 
 }
