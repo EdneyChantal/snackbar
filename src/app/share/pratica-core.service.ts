@@ -5,8 +5,12 @@ import { Injectable} from '@angular/core';
 export class PraticaCore {
     constructor() {}
     maskToNumber(str:string ) :number {
-        return parseInt( str.replace(/[\D]+/g,'') );
+        if (str) {
+           return parseInt( str.replace(/[\D]+/g,'') );
+        }
+        return null;   
     }
+
     controlArrayPage(arrTotal:Array<Object>,page:number=1,lengthPage:number=10) {
        let arrPage = new Array<Object>();
        let indexini:number;
@@ -58,6 +62,48 @@ export class PraticaCore {
         }
         return retorno;
     }
+    textToCep(texto:string):string {
+       let data:string = texto.replace(/[^0-9]+/g,"");
+       let tam:number= data.length;
+       if (data.length > 2)  {
+           data = data.substr(0,2) + '.' + data.substr(2);
+       }
+       if (data.length > 7 ) {
+           data = data.substr(0,6) + '-' + data.substr(6,3);
+       }
+       return data;
+    }
+    textToCnpj(texto:string):string {
+       let data:string = texto.replace(/[^0-9]+/g,"");
+       if (data.length > 2 ) {
+           data = data.substr(0,2) + "." + data.substr(2);
+       }
+       if (data.length > 6 ) {
+           data = data.substr(0,6) + "." + data.substr(6);
+       }
+       if (data.length > 10 ) {
+           data = data.substr(0,10) + "/" + data.substr(10);
+       }
+       if (data.length > 15 ) {
+           data = data.substr(0,15) + "-" + data.substr(15);
+       }
+       return data ;
+      
+    }
+    textToCpf(texto:string):string {
+       let data:string = texto.replace(/[^0-9]+/g,"");
+       if (data.length > 3 ) {
+           data = data.substr(0,3) + "." + data.substr(3);
+       }
+       if (data.length > 7 ) {
+           data = data.substr(0,7) + "." + data.substr(7);
+       }
+       if (data.length > 11 ) {
+           data = data.substr(0,11) + "-" + data.substr(11);
+       }
+       return data ;
+    }
+
     textToMoeda( data:string):string{
         let sinal = 1; 
         let retorno:string;
@@ -125,6 +171,15 @@ export class PraticaCore {
          }
       }
    }
+   prepareModel(pobj:Object){
+      let b:Object={}; 
+      for (let i in pobj) {
+         if (pobj.hasOwnProperty(i) && i.substr(0,1) !=='$' && pobj[i]) {
+            b[i] = pobj[i];
+         }
+      }
+   }
+
    toArray(pobj:Object):Object[]{
        let a:Object[]=[];
        this.oForEach(pobj,function(value,key){

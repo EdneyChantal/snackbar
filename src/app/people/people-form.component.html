@@ -18,19 +18,112 @@
                   <ngb-tab title="Endereço">
                     <template ngbTabContent>
                       <div class="row">
-
                            <div class='col-lg-8'>
                               <div class="form-group">
                                 <label>Cep</label>
-                                <input type="text" class="form-control" ng-model="people.cep" di-cep name="cep"  />
+                                <input type="text" class="form-control" [ngModel]="people.cep" maxlength="10" (ngModelChange)="people.cep=pcore.textToCep($event)" name="cep"  />
                              </div>
                           </div>
-                         <div class="col-lg-4">
+                         <div class="col-lg-4"> 
                             <a href="" ng-click="pesquisaCep(people.cep)" style="margin-top:50px;"><img src="img/logo-correios.jpg" width="50px;"/></a>                  
                          </div>
                       </div>
+                      <div class="row">
+                        <div class="col-lg-8">
+                         <div class="form-group">
+                           <label>Endereço</label>
+                            <input type="text" maxlength="100" class="form-control" [(ngModel)]="people.endereco"  name="endereco" />
+                         </div>
+                        </div>   
+                        <div class="col-lg-2">
+                          <div class="form-group">
+                            <label>Numero</label>
+                            <input type="text" maxlength="20" class="form-control" [(ngModel)]="people.numero"  name="numero" />
+                          </div>
+                        </div>   
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-8">
+                         <div class="form-group">
+                          <label>Complemento</label>
+                          <input type="text" maxlength="100" class="form-control" [(ngModel)]="people.complemento"  name="complemento"   />
+                         </div>
+                        </div>   
+                      <div class="col-lg-4">
+                         <div class="form-group">
+                           <label>Bairro</label>
+                           <input type="text" maxlength="100" class="form-control" [(ngModel)]="people.bairro"  name="bairro" />
+                         </div>
+                      </div>
+                      </div>
+                      <div class="row">
+                       <div class="col-lg-6">
+                         <div class="form-group">
+                           <label>Cidade</label>
+                           <input type="text" maxlength="100" class="form-control" [(ngModel)]="people.cidade"  name="cidade" />
+                         </div>
+                      </div>
+                      <div class="col-lg-6">
+                         <div class="form-group">
+                           <label>Estado</label>
+                           <input type="text" maxlength="100" class="form-control" [(ngModel)]="people.estado"  name="estado" />
+                         </div>
+                      </div>
+
+
+
+
+                      </div>
                     </template>
                   </ngb-tab>
+                  <ngb-tab title="Documento">
+                    <template ngbTabContent>
+                     <div class="row">
+                       <div [ngSwitch]="people.typePeople">
+                       <div *ngSwitchCase="'FI'">
+                         <div class="col-lg-4">
+                            <div class="form-group">
+                             <label>C.P.F</label>
+                             <input type="text" class="form-control" [ngModel]="people.cpf" (ngModelChange)="people.cpf=pcore.textToCpf($event)" name="cpf" maxlength="14"  />
+                            </div>
+                        </div>
+                         <div class="col-lg-4">
+                            <div class="form-group">
+                             <label>Identidade</label>
+                             <input type="text" class="form-control" [(ngModel)]="people.identidade"  name="identidade"  />
+                            </div>
+                         </div>
+                         <div class="col-lg-4">
+                            <div class="form-group">
+                             <label>Outros</label>
+                             <input type="text" class="form-control" [(ngModel)]="people.outrosdoc"  name="outrosdoc"  />
+                            </div>
+                         </div>
+                      </div>
+                      <div *ngSwitchCase="'JU'">     
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                             <label>C.N.P.J</label>
+                             <input type="text" class="form-control" [ngModel]="people.cnpj" (ngModelChange)="people.cnpj=pcore.textToCnpj($event)"  name="cnpj"  />
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                             <label>Inscrição Munic.</label>
+                             <input type="text" class="form-control" [(ngModel)]="people.insmunic"  name="insmunic"  />
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                             <label>Inscrição Estad.</label>
+                             <input type="text" class="form-control" [(ngModel)]="people.insestad"  name="insestad"  />
+                            </div>
+                         </div>    
+                      </div>      
+                     </div>
+                   </div>
+                    </template>
+                  </ngb-tab>  
                 </ngb-tabset>
 
 

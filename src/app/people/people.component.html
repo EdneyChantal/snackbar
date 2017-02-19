@@ -16,7 +16,7 @@
  </div>
  <div class="row" *ngIf="openForm">
      <div class="col-lg-6 col-lg-offset-3">
-        <cp-people-form></cp-people-form>
+        <cp-people-form  (peopleChange)="save($event)"></cp-people-form>
      </div>
     
     
@@ -34,25 +34,15 @@
             <thead>
               <tr class="table-info">
                 <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Nome</th>
+                <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Larry</td>
-                <td>the Bird</td>
+              <tr  *ngFor="let pe of lct;let i = index;">
+                <td></td>
+                <td>{{pe.name}}</td>
+                <td></td>
               </tr>
             </tbody>
           </table>

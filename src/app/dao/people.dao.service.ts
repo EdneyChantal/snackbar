@@ -4,6 +4,7 @@ import {Promise}           from 'firebase';
 import {Observable}        from 'rxjs/observable';
 import {AuthService}       from '../share/auth.service';
 import {People}            from '../model/people';
+import {PeopleView}                  from '../model/peopleview'
 import {NgbDateStruct}     from '@ng-bootstrap/ng-bootstrap'
 import {PraticaCore}       from '../share/pratica-core.service'
 
@@ -44,37 +45,52 @@ export class PeopleDaoService  {
        obj[id]=pc;
        this.olist.update(obj).then((a)=>(promise?promise(a):null)).catch((err)=>(reject?reject(err):null));
      }
-     /*modelToView(pm:Contract,pv:ContractView) {
-        
-        pv.description = pm.description;
-        pv.namecontact = pm.namecontact;
-        pv.emailContact = pm.emailContact;
-        pv.qtdvagas =  pm.qtdvagas.toString();
-        pv.valor    = this.pcore.textToMoeda(pm.valor.toString());
-        pv.timemax = pm.timemax;
+     modelToView(pv:People,pm:PeopleView) {
 
-        let di:Object={};
-        di['day']=new Date(pm['dtinivigencia']).getDay();
-        di['month'] = new Date(pm['dtinivigencia']).getMonth()+1;
-        di['year'] = new Date(pm['dtinivigencia']).getFullYear();
-        pv.dtinivigencia = di as NgbDateStruct;
-     
-        let df:Object={};
-        df['day']=new Date(pm['dtfimvigencia']).getDay();
-        df['month'] = new Date(pm['dtfimvigencia']).getMonth()+1;
-        df['year'] = new Date(pm['dtfimvigencia']).getFullYear();
-        pv.dtfimvigencia = df as NgbDateStruct;
+        pm.bairro = pv.bairro;
+        pm.cidade = pv.cidade;
+        pm.complemento = pv.complemento;
+        pm.endereco = pv.endereco;
+        pm.estado = pv.estado;
+        pm.identidade = pv.identidade;
+        pm.insestad = pv.insestad;
+        pm.insmunic  = pv.insmunic;
+        pm.name = pv.name;
+        pm.numero = pv.numero;
+        pm.observacao = pv.observacao ; 
+        pm.outrosdoc = pv.outrosdoc;
+        pm.rzsocial = pv.rzsocial ; 
+        pm.status = pv.status; 
+        pm.typePeople = pv.typePeople;
 
-     }*/
-     /*viewToModel(pm:Contract,pv:ContractView) {
-        pm.description = pv['description'];      
-        pm.namecontact = pv['namecontact'];
-        pm.emailContact = pv['emailContact'];
-        pm.qtdvagas    = +pv['qtdvagas'];
-        pm.valor =  this.pcore.maskToNumber(pv['valor']);
-        pm.timemax = pv['timemax'];
-        pm.dtinivigencia = new Date(+pv['dtinivigencia']['year'],(+pv['dtinivigencia']['month'])-1,+pv['dtinivigencia']['day']);
-        pm.dtfimvigencia = new Date(+pv['dtfimvigencia']['year'],(+pv['dtfimvigencia']['month'])-1,+pv['dtfimvigencia']['day']);
-     }*/
+        pm.cep = this.pcore.textToCep(pv.cep.toString());
+        pm.cnpj = this.pcore.textToCnpj(pv.cnpj.toString());
+        pm.cpf = this.pcore.textToCpf(pv.cnpj.toString()); 
+
+
+     }
+     viewToModel(pm:People,pv:PeopleView) {
+
+        pm.bairro = pv.bairro;
+        pm.cidade = pv.cidade;
+        pm.complemento = pv.complemento;
+        pm.endereco = pv.endereco;
+        pm.estado = pv.estado;
+        pm.identidade = pv.identidade;
+        pm.insestad = pv.insestad;
+        pm.insmunic  = pv.insmunic;
+        pm.name = pv.name;
+        pm.numero = pv.numero;
+        pm.observacao = pv.observacao ; 
+        pm.outrosdoc = pv.outrosdoc;
+        pm.rzsocial = pv.rzsocial ; 
+        pm.status = pv.status; 
+        pm.typePeople = pv.typePeople;
+
+        pm.cep =this.pcore.maskToNumber(pv.cep);
+        pm.cnpj = this.pcore.maskToNumber(pv.cnpj);
+        pm.cpf = this.pcore.maskToNumber(pv.cnpj); 
+
+     }
 
 }

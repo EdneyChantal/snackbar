@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {People} from '../model/people';
+import { Component, OnInit,Output,EventEmitter } from '@angular/core';
+import {PeopleView} from '../model/peopleview';
+import {PraticaCore}   from  '../share/pratica-core.service';
 
 @Component({
   selector: 'cp-people-form',
@@ -7,9 +8,20 @@ import {People} from '../model/people';
   styleUrls: []
 })
 export class PeopleFormComponent implements OnInit {
-  people:People = new People();
+  @Output() peopleChange:EventEmitter<PeopleView>=new EventEmitter<PeopleView>();
+  people:PeopleView = new PeopleView();
+
+  constructor(private pcore:PraticaCore) {
+    
+  }
+  onSubmit() {
+      this.peopleChange.emit(this.people);
+      this.people= new PeopleView();
+      
+   }
 
   ngOnInit() {
+     this.people.typePeople="FI";
   }
 
 }
