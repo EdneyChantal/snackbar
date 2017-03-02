@@ -5,6 +5,7 @@ import {MenuComponent }    from './share/menu/menu.component';
 import {HomeComponent}      from './share/menu/home.component';
 import {AuthGuard}       from './share/auth-guard.service';
 import {PeopleRoutes} from './people/people.route';
+import {AccReceivableRoute}  from './accreceivable/accreceivable.route';
 
 const menuRoutes: Routes = [
   {
@@ -15,7 +16,8 @@ const menuRoutes: Routes = [
       { path: '',
         component:HomeComponent,
   canActivateChild:[AuthGuard] },
-        ...PeopleRoutes,/*
+        ...PeopleRoutes,
+        ...AccReceivableRoute/*
         ...ParameterRoutes,
         ...PortariaRoutes*/
        ],

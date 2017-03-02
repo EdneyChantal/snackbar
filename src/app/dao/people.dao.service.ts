@@ -1,51 +1,38 @@
 import {Injectable}        from '@angular/core';
-import {AngularFire,FirebaseObjectObservable,FirebaseListObservable} from 'angularfire2';
-import {Promise}           from 'firebase';
-import {Observable}        from 'rxjs/observable';
+import {AngularFire,FirebaseListObservable} from 'angularfire2';
 import {AuthService}       from '../share/auth.service';
 import {People}            from '../model/people';
-import {PeopleView}                  from '../model/peopleview'
+import {PeopleView}        from '../model/peopleview'
 import {NgbDateStruct}     from '@ng-bootstrap/ng-bootstrap'
 import {PraticaCore}       from '../share/pratica-core.service'
+import {DaoService} from './dao.service';
 
 @Injectable()
-export class PeopleDaoService  {
-     olist :FirebaseObjectObservable<Object>;
-     constructor(private authservice:AuthService,private af:AngularFire,private pcore:PraticaCore){
+export class PeopleDaoService extends DaoService  {
+     
+     constructor(private pauthservice:AuthService,private paf:AngularFire,private ppcore:PraticaCore){
+        super(pauthservice,paf,ppcore);
      }
-     load(promise:Function )  {
-       if (this.isChosenCompany()) {  
-        this.olist = this.af.database.object(this.authservice.getPathBaseSis()+'/People');
-        this.olist.subscribe({next:oct=>{
-           let ar:Object[]=this.pcore.toArray(oct);
-           promise(ar);
-        }});
-       } 
+     
+     doSearch(research:string,aPeo:Array<People>):Array<People> {
+        
+       if (!research) {
+         return aPeo;
+       }
+       if (aPeo) {
+         return aPeo.filter(function(people){
+            return people.name.toUpperCase().indexOf(research.toUpperCase()) >=0 ;
+         });
+       } else {
+         return undefined;
+       }
      }
-     isChosenCompany():Boolean {
-       return (this.authservice.getPathBaseSis()!==null);
+     load(promise:Function) {
+       super.loadGlobal('People',promise,'name');
      }
-     remove(key:string,promise?:Function,reject?:Function) {
-      let obj:Object={};
-       obj[key]={};
-       this.olist.update(obj).then((a)=>(promise?promise(a):null)).catch((err)=>(reject?reject(err):null));
+     modelToView(pv:People):PeopleView {
 
-     }
-     update(key:string,pc:People,promise?:Function,reject?:Function) {
-       let obj:Object={};
-       obj[key]={};
-       obj[key]=pc;
-       this.olist.update(obj).then((a)=>(promise?promise(a):null)).catch((err)=>(reject?reject(err):null));
-     }
-
-     insert(pc:People,promise?:Function,reject?:Function) {
-       let id:string = this.pcore.geraId();
-       let obj:Object={};
-       obj[id]={};
-       obj[id]=pc;
-       this.olist.update(obj).then((a)=>(promise?promise(a):null)).catch((err)=>(reject?reject(err):null));
-     }
-     modelToView(pv:People,pm:PeopleView) {
+        let pm:PeopleView=new PeopleView();
 
         pm.bairro = pv.bairro;
         pm.cidade = pv.cidade;
@@ -62,36 +49,40 @@ export class PeopleDaoService  {
         pm.rzsocial = pv.rzsocial ; 
         pm.status = pv.status; 
         pm.typePeople = pv.typePeople;
+         
 
-        pm.cep = this.pcore.textToCep(pv.cep.toString());
-        pm.cnpj = this.pcore.textToCnpj(pv.cnpj.toString());
-        pm.cpf = this.pcore.textToCpf(pv.cnpj.toString()); 
+        pm.cep =(pv.cep?this.ppcore.textToCep(pv.cep.toString()):undefined);
+        pm.cnpj =(pv.cnpj?this.ppcore.textToCnpj(pv.cnpj.toString()):undefined);
+        pm.cpf = (pv.cpf?this.ppcore.textToCpf(pv.cpf.toString()):undefined); 
 
-
+        return pm;
      }
-     viewToModel(pm:People,pv:PeopleView) {
+     viewToModel(pv:PeopleView):Object {
+   
+       let pm:Object ={} ; 
 
-        pm.bairro = pv.bairro;
-        pm.cidade = pv.cidade;
-        pm.complemento = pv.complemento;
-        pm.endereco = pv.endereco;
-        pm.estado = pv.estado;
-        pm.identidade = pv.identidade;
-        pm.insestad = pv.insestad;
-        pm.insmunic  = pv.insmunic;
-        pm.name = pv.name;
-        pm.numero = pv.numero;
-        pm.observacao = pv.observacao ; 
-        pm.outrosdoc = pv.outrosdoc;
-        pm.rzsocial = pv.rzsocial ; 
-        pm.status = pv.status; 
-        pm.typePeople = pv.typePeople;
+        pm['bairro'] = pv.bairro;
+        pm['cidade'] = pv.cidade;
+        pm['complemento'] = pv.complemento;
+        pm['endereco'] = pv.endereco;
+        pm['estado'] = pv.estado;
+        pm['identidade'] = pv.identidade;
+        pm['insestad'] = pv.insestad;
+        pm['insmunic']  = pv.insmunic;
+        pm['name'] = pv.name.toUpperCase();
+        pm['numero'] = pv.numero;
+        pm['observacao'] = pv.observacao ; 
+        pm['outrosdoc'] = pv.outrosdoc;
+        pm['rzsocial'] = (pv.rzsocial?pv.rzsocial.toUpperCase():undefined); 
+        pm['status'] = pv.status; 
+        pm['typePeople'] = pv.typePeople;
 
-        pm.cep =this.pcore.maskToNumber(pv.cep);
-        pm.cnpj = this.pcore.maskToNumber(pv.cnpj);
-        pm.cpf = this.pcore.maskToNumber(pv.cnpj); 
+        pm['cep'] =this.ppcore.maskToNumber(pv.cep);
+        pm['cnpj'] = this.ppcore.maskToNumber(pv.cnpj);
+        pm['cpf'] = this.ppcore.maskToNumber(pv.cnpj); 
 
-        pm =  this.pcore.prepareModel(pm);
+        pm =  this.ppcore.prepareModel(pm);
+        return pm;
 
      }
 

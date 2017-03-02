@@ -1,0 +1,45 @@
+<div class="alert alert-danger" *ngIf="!ctDao.isChosenCompany()">
+    Deve selecionar um Estabelecimento
+</div>    
+<div *ngIf="ctDao.isChosenCompany()">
+<div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+               <h1>Contas a Receber</h1>
+            </div>  
+           <button  class="btn btn-primary" (click)="toogleForm()">
+                       <i class="fa fa-plus-square"></i> 
+            </button>
+
+        </div>
+ </div>
+ <div class="row" *ngIf="openForm">
+     <div class="col-lg-8 col-lg-offset-2"> 
+         <!--<cp-contract-form [changeContract]="selectCt" (contractchange)="save($event)" (contractcancel)="toogleForm()" ></cp-contract-form>-->
+     </div>
+     <div class="alert alert-danger" [hidden]="erro==''">{{erro}}</div>
+ </div>
+ <div class="row">
+    <div class="col-lg-12">
+       <div class="card card-block">
+           <h4>Contas Cadastradas</h4>
+           <ngb-accordion [closeOthers]="true" activeIds="1"> 
+              <ngb-panel id="{{i+1}}" *ngFor="let ct of lct;let i = index;">      
+                  <template ngbPanelTitle> 
+                      <h4 class="text-primary">{{ct.description}}</h4>
+                      <div class="text-right">
+                        <button type="button" class="btn btn-primary btn-sm" (click)="change(ct)">Alterar</button>
+                        <button type="button" class="btn btn-danger  btn-sm" (click)="del(ct.$key)">Excluir</button>                
+                      </div>
+                  </template>
+                  <template ngbPanelContent> 
+                       <cp-table [contract]="ct.id"></cp-table>
+
+                  </template>
+
+              </ngb-panel>
+           </ngb-accordion>
+       </div>
+    </div>
+ </div>
+</div> 

@@ -12,7 +12,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     NgbModule
   ],
-  declarations: [PeopleComponent, PeopleComponent,PeopleFormComponent],
+  declarations: [PeopleComponent,PeopleFormComponent],
   providers:[PeopleDaoService]
 })
 export class PeopleModule { }

@@ -1,16 +1,25 @@
 import { Injectable} from '@angular/core';
-
+import {Http,Headers,RequestOptions}  from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class PraticaCore {
-    constructor() {}
+    constructor(private http:Http) {}
     maskToNumber(str:string ) :number {
         if (str) {
            return parseInt( str.replace(/[\D]+/g,'') );
         }
         return null;   
     }
-
+    findCep(ncep:number,processRet:Function) {
+      let url:string = 'https://viacep.com.br/ws/' + ncep +'/json/';
+      let headers = new Headers({ 'Content-Type': 'text/json'});
+      let options = new RequestOptions({headers:headers});
+      this.http.get(url,options).toPromise().then(response=>{
+           processRet( response.json());}).catch(err=>console.log(err));
+    }
+    
     controlArrayPage(arrTotal:Array<Object>,page:number=1,lengthPage:number=10) {
        let arrPage = new Array<Object>();
        let indexini:number;
@@ -171,13 +180,14 @@ export class PraticaCore {
          }
       }
    }
-   prepareModel(pobj:Object){
+   prepareModel(pobj:Object):Object{
       let b:Object={}; 
       for (let i in pobj) {
          if (pobj.hasOwnProperty(i) && i.substr(0,1) !=='$' && pobj[i]) {
             b[i] = pobj[i];
          }
       }
+      return b;
    }
 
    toArray(pobj:Object):Object[]{

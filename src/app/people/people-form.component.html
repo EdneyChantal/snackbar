@@ -21,11 +21,11 @@
                            <div class='col-lg-8'>
                               <div class="form-group">
                                 <label>Cep</label>
-                                <input type="text" class="form-control" [ngModel]="people.cep" maxlength="10" (ngModelChange)="people.cep=pcore.textToCep($event)" name="cep"  />
+                                <input type="text" class="form-control" [ngModel]="people.cep" maxlength="10" (ngModelChange)="people.cep=pcore.textToCep($event)" name="cep" #cep   />
                              </div>
                           </div>
                          <div class="col-lg-4"> 
-                            <a href="" ng-click="pesquisaCep(people.cep)" style="margin-top:50px;"><img src="img/logo-correios.jpg" width="50px;"/></a>                  
+                            <a href="javascript:void" (click)="findCep(cep)" style="margin-top:50px;"><img src="assets/img/logo-correios.jpg" width="50px;"/></a>                  
                          </div>
                       </div>
                       <div class="row">
@@ -130,7 +130,7 @@
 
 
                 <button type="submit" [disabled]="fpeople.form.invalid" class="btn btn-primary">Gravar</button>
-                <button type="cancel" class="btn btn-danger" (click)="cancel();">Limpar</button>
+
               
               </form>
             </div>
