@@ -14,6 +14,6 @@ export class AccReceivableService extends DaoService  {
         super(pauthservice,paf,ppcore);
      }
      load(promise:Function) {
-       super.loadGlobal('AccountReceivable',promise,'');
+       super.loadGlobal('AccountReceivable',promise);
      }
-}
+} 

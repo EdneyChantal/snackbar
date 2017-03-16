@@ -5,7 +5,7 @@ import {People}            from '../model/people';
 import {PeopleView}        from '../model/peopleview'
 import {NgbDateStruct}     from '@ng-bootstrap/ng-bootstrap'
 import {PraticaCore}       from '../share/pratica-core.service'
-import {DaoService} from './dao.service';
+import {DaoService}        from './dao.service';
 
 @Injectable()
 export class PeopleDaoService extends DaoService  {
@@ -28,7 +28,15 @@ export class PeopleDaoService extends DaoService  {
        }
      }
      load(promise:Function) {
-       super.loadGlobal('People',promise,'name');
+       let q = {} ; 
+       q['query'] ={}; 
+       q['query']['orderByChild']='name';
+       q['query']['startAt']=this.newSubjectQuery();
+       super.loadGlobal('People',promise,q);
+     }
+     loadSFind(promise:Function) {
+        let q = {} ; 
+        super.loadGlobal('People',promise,q);
      }
      modelToView(pv:People):PeopleView {
 

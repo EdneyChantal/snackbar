@@ -8,12 +8,13 @@ import {PeopleView}        from '../model/peopleview'
 import {NgbDateStruct}     from '@ng-bootstrap/ng-bootstrap'
 import {PraticaCore}       from '../share/pratica-core.service'
 import {Subject}           from 'rxjs/Subject';
-
+import {Subscription}      from 'rxjs/Subscription';
 
 
 export class DaoService  {
      olist :FirebaseListObservable<any>;
      startAtSubject: Subject<any>;
+     subscrition:Subscription;
      constructor(private authservice:AuthService,private af:AngularFire,private pcore:PraticaCore){ }
      
 
@@ -23,21 +24,28 @@ export class DaoService  {
 
         }
      }
+     closeLoad() {
+      this.subscrition.unsubscribe();
+     }
+     newSubjectQuery():Subject<any>{
+      this.startAtSubject = new Subject();
+      return this.startAtSubject;
+     }
 
 
-     loadGlobal(table:string ,promise?:Function,orderkey?:string )  {
+     loadGlobal(table:string ,promise?:Function,queryOp?:Object )  {
        if (this.isChosenCompany()) {  
-        let q = {};
-        if (orderkey) {
+        /*if (q) {
           this.startAtSubject = new Subject();
           q['query'] ={}; 
           q['query']['orderByChild']=orderkey;
           q['query']['startAt']=this.startAtSubject; 
-        }
-        this.olist = this.af.database.list(this.authservice.getPathBaseSis()+"/"+table,q);
-        this.olist.subscribe({next:oct=>{
+        }*/
+        this.olist = this.af.database.list(this.authservice.getPathBaseSis()+"/"+table,queryOp);
+        this.subscrition = this.olist.subscribe({next:oct=>{
              promise(oct);
         }});
+        
        } 
      }
      isChosenCompany():Boolean {
