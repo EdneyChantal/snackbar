@@ -18,17 +18,12 @@
                    <input type="text" required=true maxlength="100" class="form-control" [(ngModel)]="account.namePeople"  name="namePeople" placeholder="Nome do Cliente" /> 
                 </div>
                 <div class="form-group input-group">
-                     <span class="input-group-addon">Vencimento</span> 
-                     <input class="form-control" placeholder="Vencimento (yyyy-mm-dd)"
-                                name="dp" [(ngModel)]="account.maturityDate" ngbDatepicker #d="ngbDatepicker">
-                        <a href="javascript:void" (click)="d.toggle()" class="btn btn-primary input-group-addon"><i class="fa fa-calendar-check-o"></i></a>        
-                </div>
-                <div class="form-group input-group">
                     <span class="input-group-addon">Valor</span> 
                    <input type="text" maxlength="100" class="form-control" [ngModel]="account.amount" (keyup)="account.amount=pcore.textToMoeda($event.target.value)" name="amount" placeholder="Valor" /> 
                 </div>
+                <cp-portion-acc [allowInclude]="faccreceivable.form.valid" [accreceivable]="account"></cp-portion-acc>    
             </form>
-             <cp-portion-acc [accreceivable]="account"></cp-portion-acc>    
+
             </div>
         </div>
    </div>

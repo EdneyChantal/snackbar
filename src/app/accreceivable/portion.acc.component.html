@@ -3,7 +3,7 @@
        <h3>Parcelas</h3>
     </div>
     <div class="col-lg-4">
-       <a href="javascript:void" class="btn btn-primary" (click)="toogleForm()">Incluir<i class="fa fa-plus"></i></a>
+       <button  [disabled]="!allowInclude" class="btn btn-primary" (click)="toogleForm()">Incluir<i class="fa fa-plus"></i></button>
     </div>  
 </div>
 <div class="row" *ngIf="openForm">

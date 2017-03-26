@@ -10,6 +10,7 @@ import {PortionAccDaoService} from '../dao/portionAcc.dao.service';
 })
 export class PortionAccrReComponent implements OnInit {
   @Input('accreceivable') accreceivable:AccountReceivable;
+  @Input('allowInclude') allowInclude:Boolean;
   openForm:Boolean=false;
   portionArray:Array<PortionAccReceivable>=new Array();
   
