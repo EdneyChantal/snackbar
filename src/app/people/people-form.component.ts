@@ -1,6 +1,8 @@
 import { SimpleChanges,Component,OnChanges, OnInit,Output,Input,EventEmitter } from '@angular/core';
 import {PeopleView} from '../model/peopleview';
+import {People }    from '../model/people';
 import {PraticaCore}   from  '../share/pratica-core.service';
+import {PeopleDaoService} from '../dao/people.dao.service';
 
 @Component({
   selector: 'cp-people-form',
@@ -9,10 +11,10 @@ import {PraticaCore}   from  '../share/pratica-core.service';
 })
 export class PeopleFormComponent implements OnInit,OnChanges {
   @Output() peopleChange:EventEmitter<PeopleView>=new EventEmitter<PeopleView>();
-  @Input('changePeople')  chPe:PeopleView;
+  @Input('changePeople')  chPe:People;
   people:PeopleView = new PeopleView();
 
-  constructor(private pcore:PraticaCore) {
+  constructor(private pcore:PraticaCore,private ctDao:PeopleDaoService) {
     
   }
   findCep() {
@@ -30,8 +32,9 @@ export class PeopleFormComponent implements OnInit,OnChanges {
       this.people= new PeopleView();
   }
   ngOnChanges(changes:SimpleChanges) {
-    
-    this.people = (changes['chPe'].currentValue?changes['chPe'].currentValue:this.people);
+    if (changes['chPe'].currentValue) {
+      this.people = this.ctDao.modelToView(changes['chPe'].currentValue);
+    }
   }
 
   ngOnInit() {

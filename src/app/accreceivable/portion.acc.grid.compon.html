@@ -1,0 +1,16 @@
+    <table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr class="table-success">
+        <th>#</th>
+        <th>Vencimento</th>
+        <th>Valor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr  *ngFor="let portion of arrayPortion;let i = index;">
+        <td>{{i+1}}</td>
+        <td>{{portion.maturityDate | date }}</td>
+        <td>{{portion.value/100 | currency:'BRL':true}}</td>
+        </tr>
+    </tbody>
+    </table>   

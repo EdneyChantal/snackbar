@@ -35,7 +35,7 @@ export class PeopleDaoService extends DaoService  {
        super.loadGlobal('People',promise,q);
      }
      loadSFind(promise:Function) {
-        let q = {} ; 
+        let q = undefined ; 
         super.loadGlobal('People',promise,q);
      }
      modelToView(pv:People):PeopleView {
@@ -57,7 +57,7 @@ export class PeopleDaoService extends DaoService  {
         pm.rzsocial = pv.rzsocial ; 
         pm.status = pv.status; 
         pm.typePeople = pv.typePeople;
-         
+        pm.id =  pv.id;
 
         pm.cep =(pv.cep?this.ppcore.textToCep(pv.cep.toString()):undefined);
         pm.cnpj =(pv.cnpj?this.ppcore.textToCnpj(pv.cnpj.toString()):undefined);
@@ -84,12 +84,14 @@ export class PeopleDaoService extends DaoService  {
         pm['rzsocial'] = (pv.rzsocial?pv.rzsocial.toUpperCase():undefined); 
         pm['status'] = pv.status; 
         pm['typePeople'] = pv.typePeople;
+        pm['id']  = pv.id;
 
         pm['cep'] =this.ppcore.maskToNumber(pv.cep);
         pm['cnpj'] = this.ppcore.maskToNumber(pv.cnpj);
         pm['cpf'] = this.ppcore.maskToNumber(pv.cnpj); 
-
+      
         pm =  this.ppcore.prepareModel(pm);
+        
         return pm;
 
      }

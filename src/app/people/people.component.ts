@@ -10,27 +10,21 @@ import {PraticaCore} from '../share/pratica-core.service';
   styleUrls: ['./people.component.css']
 })
 export class PeopleComponent implements OnInit {
-  lct:People[]=new Array<People>();
-  lctView:People[]=new Array<People>();
   openForm:Boolean=false;
   erro:string='';
-  selectPeople:PeopleView;
+  selectPeople:People;
   keySelect:string;
-  page:number=1;
-  reSearch:string='';
-
+  
   constructor(private ctDao:PeopleDaoService,private pcore:PraticaCore) { }
 
   ngOnInit() {
-      this.ctDao.load(obj=>{
-        this.lct=(obj as People[]);
-        this.pageTable();
-      });
-
-
+   
   }
-  pageTable(){
-     this.lctView = (this.pcore.controlArrayPage(this.lct,this.page) as People[]);
+  choosePeople(people:People ) {
+   this.selectPeople = people;
+   this.keySelect = people.id;
+   this.openForm = true;
+
   }
   toogleForm() {
     if (!this.openForm) {
@@ -38,21 +32,6 @@ export class PeopleComponent implements OnInit {
        this.keySelect= undefined;
     }
     this.openForm = !this.openForm;
-    
-
-  }
-  remove(key){
-    this.ctDao.remove(key);
-  }
-  choicePe(sel){
-    this.selectPeople =this.ctDao.modelToView(sel);
-    this.keySelect = sel.id;
-    this.openForm=true;
-  }
-  doSearch(pes){
-    this.reSearch = pes;
-    this.page=1;
-    this.ctDao.filterBy(pes);
   }
   save(pv:PeopleView){
     let nct= {};

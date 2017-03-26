@@ -1,6 +1,8 @@
-export class PortionaccReceivable {
+import {AccountReceivable} from './accountreceivable';
+
+export class PortionAccReceivable {
    id:string;
-   idAccReceivable:string;
-   amountportion:number;
+   AccReceivable:AccountReceivable;
+   value:number;
    maturityDate:Date;
 }

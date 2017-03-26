@@ -1,11 +1,13 @@
+import {People} from './people';
+
 export class AccountReceivable {
    id:string;
-   idPeople:string;
+   people:People;
    idDocument:string;
    namePeople:string;
-   amount:number;
-   finanFine:number;
-   interrestDay:number;
+   amount:string;
+   finanFine:string;
+   interrestDay:string;
    description:string;
    dataReg:Date;
 }

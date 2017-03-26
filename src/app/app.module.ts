@@ -17,7 +17,7 @@ import {MenuModule} from './share/menu/menu.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {snackbarConfig} from './myappconfig';
 import {AccreceivableModule} from './accreceivable/accreceivable.module';
-
+import {PortionAccRecModule} from './accreceivable/portion.acc.module';
 
 // Must export the config
 const firebaseConfig = {
@@ -47,6 +47,7 @@ const myFirebaseAuthConfig = {
     AppRoutingModule,
     PeopleModule ,
     AccreceivableModule,
+    PortionAccRecModule,
     AngularFireModule.initializeApp(firebaseConfig,myFirebaseAuthConfig),
     NgbModule.forRoot()
   ],

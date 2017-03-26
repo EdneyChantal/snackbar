@@ -1,10 +1,38 @@
-<div class="card text-left">
-    <div class="card-block">
-       <h3 class="text-success">Nova Conta<br></h3>
-       <form (ngSubmit)="onSubmit()" #faccreceivable="ngForm" >
-
-
-
-       </form>
-    </div>
+<div class="row">
+   <div class="col-lg-8">
+        <div class="card text-left">
+            <div class="card-block">
+            <h3 class="text-success">Nova Conta<br></h3>
+            <form (ngSubmit)="onSubmit()" #faccreceivable="ngForm" >
+                <fieldset class="form-group">
+                        <label>Cliente</label>
+                        <span *ngIf="account.people">{{account.people.name}}</span>
+                        <a href="javascript:void" (click)="openFcli=!openFcli" class="btn btn-secondary"><i class="fa fa-hand-pointer-o"></i>Escolher Cliente</a>
+                </fieldset>
+                <div class="form-group input-group">
+                   <span class="input-group-addon">Descrição</span> 
+                   <input type="text" maxlength="100" class="form-control" [(ngModel)]="account.description"  name="description" placeholder="Descrição da Conta" />
+                </div>
+                <div class="form-group input-group">
+                   <span class="input-group-addon">Cliente</span> 
+                   <input type="text" required=true maxlength="100" class="form-control" [(ngModel)]="account.namePeople"  name="namePeople" placeholder="Nome do Cliente" /> 
+                </div>
+                <div class="form-group input-group">
+                     <span class="input-group-addon">Vencimento</span> 
+                     <input class="form-control" placeholder="Vencimento (yyyy-mm-dd)"
+                                name="dp" [(ngModel)]="account.maturityDate" ngbDatepicker #d="ngbDatepicker">
+                        <a href="javascript:void" (click)="d.toggle()" class="btn btn-primary input-group-addon"><i class="fa fa-calendar-check-o"></i></a>        
+                </div>
+                <div class="form-group input-group">
+                    <span class="input-group-addon">Valor</span> 
+                   <input type="text" maxlength="100" class="form-control" [ngModel]="account.amount" (keyup)="account.amount=pcore.textToMoeda($event.target.value)" name="amount" placeholder="Valor" /> 
+                </div>
+            </form>
+             <cp-portion-acc [accreceivable]="account"></cp-portion-acc>    
+            </div>
+        </div>
+   </div>
+   <div class="col-lg-4" *ngIf="openFcli" >
+     <cp-grid-people [showActs]="false" (peopleChoose)="choosePeople($event)" ></cp-grid-people>
+   </div> 
 </div>

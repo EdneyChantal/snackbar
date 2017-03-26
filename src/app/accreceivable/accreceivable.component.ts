@@ -10,10 +10,17 @@ import {AccountReceivable} from '../model/accountreceivable'
 })
 export class AccreceivableComponent implements OnInit {
   lct:AccountReceivable[]=new Array<AccountReceivable>();
+  openForm:Boolean=false;
+  
   constructor(private ctDao:AccReceivableService,private pcore:PraticaCore) { }
 
   ngOnInit() {
     
+  }
+  toogleForm() {
+    if (!this.openForm) {
+    }
+    this.openForm = !this.openForm;
   }
 
 }

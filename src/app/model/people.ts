@@ -19,4 +19,5 @@ export class People {
    rzsocial  :  string;
    status :  string; 
    typePeople: string;
+   id:string;
 }

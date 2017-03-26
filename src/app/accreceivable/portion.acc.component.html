@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-lg-8">
+       <h3>Parcelas</h3>
+    </div>
+    <div class="col-lg-4">
+       <a href="javascript:void" class="btn btn-primary" (click)="toogleForm()">Incluir<i class="fa fa-plus"></i></a>
+    </div>  
+</div>
+<div class="row" *ngIf="openForm">
+   <div class="col-lg-6 col-lg-offset-3">
+      <cp-portion-form-acc (portionAccChange)="include($event)"></cp-portion-form-acc>
+   </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <cp-portion-grid-acc [arrayPortion]="portionArray"></cp-portion-grid-acc>
+    </div>
+ </div>

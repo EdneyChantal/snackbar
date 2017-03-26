@@ -12,7 +12,7 @@ import {Subscription}      from 'rxjs/Subscription';
 
 
 export class DaoService  {
-     olist :FirebaseListObservable<any>;
+     olist :FirebaseListObservable<Array<any>>;
      startAtSubject: Subject<any>;
      subscrition:Subscription;
      constructor(private authservice:AuthService,private af:AngularFire,private pcore:PraticaCore){ }

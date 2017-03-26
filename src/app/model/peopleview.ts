@@ -19,4 +19,5 @@ export class PeopleView {
    rzsocial  :  string;
    status :  string; 
    typePeople: string;
+   id:string;
 }

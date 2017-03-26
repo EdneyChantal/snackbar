@@ -1,0 +1,16 @@
+         
+         
+           <form (ngSubmit)="onSubmit()" #fportion="ngForm" >
+             <div class="form-group input-group">
+                     <span class="input-group-addon">Vencimento</span> 
+                     <input class="form-control" placeholder="Vencimento (yyyy-mm-dd)"
+                                name="dp" [(ngModel)]="portionAcc.maturityDate" required  ngbDatepicker #d2="ngbDatepicker">
+                        <a href="javascript:void" (click)="d2.toggle()" class="btn btn-primary input-group-addon"><i class="fa fa-calendar-check-o"></i></a>        
+             </div>
+            <div class="form-group input-group">
+                    <span class="input-group-addon">Valor</span> 
+                   <input type="text" maxlength="100" class="form-control" required [ngModel]="portionAcc.value" (keyup)="portionAcc.value=pcore.textToMoeda($event.target.value)" name="value" placeholder="Valor" > 
+            </div>
+            <button type="submit" [disabled]="fportion.form.invalid" class="btn btn-primary">Inserir</button>
+          </form>
+         

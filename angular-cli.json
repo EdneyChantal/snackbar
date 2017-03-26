@@ -19,8 +19,7 @@
       "mobile": false,
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.css",
-         "./css/main.css",
-         "./css/ng2-select",
+         "./css/main.css" ,
         "styles.css"
       ],
       "scripts": [],
