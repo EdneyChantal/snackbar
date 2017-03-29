@@ -1,6 +1,6 @@
 import { Component, OnInit,Input,Output,EventEmitter}  from '@angular/core';
 import {PortionAccReceivable} from '../model/portionAccReceivable';
-import {PraticaCore}          from '../share/pratica-core.service'
+import {PraticaCore}          from '../share/pratica-core.service';
 @Component({
   selector: 'cp-portion-form-acc',
   templateUrl: './portion.acc.form.compon.html',
@@ -12,7 +12,7 @@ export class PortionAccrFormComponent implements OnInit {
   constructor(private pcore:PraticaCore) { }
 
   ngOnInit() {
-    
+    //debugger;
   }
   onSubmit() {
      this.portionAccChange.emit(this.portionAcc);

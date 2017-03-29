@@ -5,9 +5,9 @@ export class AccountReceivable {
    people:People;
    idDocument:string;
    namePeople:string;
-   amount:string;
-   finanFine:string;
-   interrestDay:string;
+   amount:number;
+   finanFine:number;
+   interrestDay:number;
    description:string;
    dataReg:Date;
 }

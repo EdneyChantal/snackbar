@@ -20,8 +20,8 @@ export class AccreceivableFormComponent implements OnInit {
  
   choosePeople(people:People) {
      this.account.people = people; 
-     this.openFcli = false;
      this.account.namePeople = people.name;
+     this.openFcli = false;
   }
 
   ngOnInit() {

@@ -3,7 +3,7 @@
        <h3>Parcelas</h3>
     </div>
     <div class="col-lg-4">
-       <button  [disabled]="!allowInclude" class="btn btn-primary" (click)="toogleForm()">Incluir<i class="fa fa-plus"></i></button>
+       <button [disabled]="!allowInclude" class="btn btn-primary" (click)="toogleForm()">Incluir<i class="fa fa-plus"></i></button>
     </div>  
 </div>
 <div class="row" *ngIf="openForm">
@@ -12,7 +12,12 @@
    </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-lg-12">
         <cp-portion-grid-acc [arrayPortion]="portionArray"></cp-portion-grid-acc>
     </div>
+ </div>
+ <div class="row">
+     <div class="col-lg-12 text-right">
+         <span> Total <strong>{{ammountPortion | currency:'BRL':true }}</strong></span>
+     </div>
  </div>

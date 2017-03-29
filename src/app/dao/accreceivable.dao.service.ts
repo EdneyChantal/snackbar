@@ -4,6 +4,7 @@ import {AuthService}       from '../share/auth.service';
 import {NgbDateStruct}     from '@ng-bootstrap/ng-bootstrap'
 import {PraticaCore}       from '../share/pratica-core.service'
 import {DaoService} from './dao.service';
+import {AccountReceivable} from '../model/accountreceivable'
 
 
 
@@ -15,5 +16,17 @@ export class AccReceivableService extends DaoService  {
      }
      load(promise:Function) {
        super.loadGlobal('AccountReceivable',promise);
+     }
+     viewToModel(view:Object):AccountReceivable{
+        let r:AccountReceivable= new AccountReceivable();
+        r.people = view['people'];
+        r.namePeople = view['namePeople'];
+        r.idDocument = view['IdDocument'];
+        r.amount = this.ppcore.maskToNumber(view['amount']);
+        r.interrestDay = view['interrestDay'];
+        r.finanFine = view['finanFine'];
+         
+        return r; 
+
      }
 } 

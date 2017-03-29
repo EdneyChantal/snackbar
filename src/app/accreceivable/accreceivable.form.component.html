@@ -7,7 +7,7 @@
                 <fieldset class="form-group">
                         <label>Cliente</label>
                         <span *ngIf="account.people">{{account.people.name}}</span>
-                        <a href="javascript:void" (click)="openFcli=!openFcli" class="btn btn-secondary"><i class="fa fa-hand-pointer-o"></i>Escolher Cliente</a>
+                        <a href="javascript:;" (click)="openFcli=!openFcli;" class="btn btn-secondary"><i class="fa fa-hand-pointer-o"></i>Escolher Cliente</a>
                 </fieldset>
                 <div class="form-group input-group">
                    <span class="input-group-addon">Descrição</span> 
@@ -15,11 +15,11 @@
                 </div>
                 <div class="form-group input-group">
                    <span class="input-group-addon">Cliente</span> 
-                   <input type="text" required=true maxlength="100" class="form-control" [(ngModel)]="account.namePeople"  name="namePeople" placeholder="Nome do Cliente" /> 
+                   <input type="text" required="true" maxlength="100" class="form-control" [(ngModel)]="account.namePeople"  name="namePeople" placeholder="Nome do Cliente" /> 
                 </div>
                 <div class="form-group input-group">
                     <span class="input-group-addon">Valor</span> 
-                   <input type="text" maxlength="100" class="form-control" [ngModel]="account.amount" (keyup)="account.amount=pcore.textToMoeda($event.target.value)" name="amount" placeholder="Valor" /> 
+                   <input type="text" required="true" maxlength="100" class="form-control" [ngModel]="account.amount" (keyup)="account.amount=pcore.textToMoeda($event.target.value)" name="amount" placeholder="Valor" /> 
                 </div>
                 <cp-portion-acc [allowInclude]="faccreceivable.form.valid" [accreceivable]="account"></cp-portion-acc>    
             </form>
@@ -28,6 +28,6 @@
         </div>
    </div>
    <div class="col-lg-4" *ngIf="openFcli" >
-     <cp-grid-people [showActs]="false" (peopleChoose)="choosePeople($event)" ></cp-grid-people>
+     <cp-grid-people [showActs]="false" (peopleChoose)="choosePeople($event)"></cp-grid-people>
    </div> 
 </div>

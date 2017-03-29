@@ -13,18 +13,22 @@ export class PortionAccrReComponent implements OnInit {
   @Input('allowInclude') allowInclude:Boolean;
   openForm:Boolean=false;
   portionArray:Array<PortionAccReceivable>=new Array();
-  
+  amountPortion:number=0;
   constructor(private pDao:PortionAccDaoService) { }
 
   toogleForm() {
+    
     this.openForm = !this.openForm; 
-
+    
   }
   ngOnInit() {
     
   }
   include(portion:Object) {
-     this.portionArray.push(this.pDao.viewToModel(portion));
+     let t:PortionAccReceivable;
+     t = this.pDao.viewToModel(portion);
+     this.amountPortion += (t.value/100);
+     this.portionArray.push(t);
      this.openForm=false;
   }
 
