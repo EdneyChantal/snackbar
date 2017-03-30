@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PraticaCore}       from '../share/pratica-core.service';
-import {AccountReceivable} from '../model/accountreceivable'  
+import {AccountReceivable} from '../model/accountreceivable';
+import {AccountReceivableView} from '../model/accountreceivableV';
 import {PeopleDaoService} from '../dao/people.dao.service';
 import {People}           from '../model/people';
 
@@ -13,8 +14,9 @@ import {People}           from '../model/people';
 })
 export class AccreceivableFormComponent implements OnInit {
   items:Array<any>=[];
-  account:AccountReceivable=new AccountReceivable();
+  account:AccountReceivableView=new AccountReceivableView();
   openFcli:Boolean=false;
+  vallowChaValue:Boolean=true;
 
   constructor(private pcore:PraticaCore) { }
  
@@ -23,7 +25,9 @@ export class AccreceivableFormComponent implements OnInit {
      this.account.namePeople = people.name;
      this.openFcli = false;
   }
-
+  disableValue(val:Boolean) {
+    this.vallowChaValue = val;
+  }
   ngOnInit() {
     /*this.items=[];
     this.pDao.loadSFind((arr:Array<People>) =>{

@@ -10,7 +10,7 @@
         <tr  *ngFor="let portion of arrayPortion;let i = index;">
         <td>{{i+1}}</td>
         <td>{{portion.maturityDate | date }}</td>
-        <td>{{portion.value/100 | currency:'BRL':true}}</td>
+        <td class="text-right">{{portion.value/100 | currency:'BRL':true}}</td>
         </tr>
     </tbody>
     </table>   

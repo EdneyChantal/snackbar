@@ -7,6 +7,8 @@ import {PraticaCore}          from '../share/pratica-core.service';
   styleUrls: []
 })
 export class PortionAccrFormComponent implements OnInit {
+  @Input('amountAccount') amountAccount:string;
+  @Input('amountPortion') amountPortion:number;
   portionAcc:PortionAccReceivable=new PortionAccReceivable();
   @Output() portionAccChange:EventEmitter<Object>=new EventEmitter<Object>();  
   constructor(private pcore:PraticaCore) { }
