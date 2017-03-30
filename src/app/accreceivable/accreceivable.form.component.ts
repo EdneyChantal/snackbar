@@ -9,7 +9,6 @@ import {People}           from '../model/people';
 @Component({
   selector: 'cp-accreceivable-form',
   templateUrl: './accreceivable.form.component.html',
-  styleUrls: [] ,
   providers:[]
 })
 export class AccreceivableFormComponent implements OnInit {

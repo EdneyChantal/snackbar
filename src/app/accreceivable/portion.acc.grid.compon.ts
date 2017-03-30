@@ -4,8 +4,8 @@ import {PortionAccReceivable} from '../model/portionAccReceivable';
 
 @Component({
   selector: 'cp-portion-grid-acc',
-  templateUrl: './portion.acc.grid.compon.html',
-  styleUrls: []
+  templateUrl: './portion.acc.grid.compon.html'
+  
 })
 export class PortionAccrGridComponent implements OnChanges {
   @Input('arrayPortion') arrayPortion:Array<PortionAccReceivable>;

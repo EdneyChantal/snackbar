@@ -1,7 +1,7 @@
 import {Injectable}        from '@angular/core';
 import {AngularFire,FirebaseObjectObservable,FirebaseListObservable} from 'angularfire2';
 import {Promise}           from 'firebase';
-import {Observable}        from 'rxjs/observable';
+
 import {AuthService}       from '../share/auth.service';
 import {People}            from '../model/people';
 import {PeopleView}        from '../model/peopleview'

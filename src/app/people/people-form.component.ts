@@ -6,8 +6,8 @@ import {PeopleDaoService} from '../dao/people.dao.service';
 
 @Component({
   selector: 'cp-people-form',
-  templateUrl: './people-form.component.html',
-  styleUrls: []
+  templateUrl: './people-form.component.html'
+  
 })
 export class PeopleFormComponent implements OnInit,OnChanges {
   @Output() peopleChange:EventEmitter<PeopleView>=new EventEmitter<PeopleView>();

@@ -4,7 +4,7 @@ import {Promise} from 'firebase';
 import {User}       from './user'
 import {Company}       from './company'
 import {Establishment} from './establishment'
-import {Observable} from 'rxjs/observable';
+
 import {Router} from '@angular/router';
 import {AppConfig} from './app-config' 
 import {PraticaCore}  from './pratica-core.service'

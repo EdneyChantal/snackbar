@@ -6,8 +6,8 @@ import {PraticaCore}   from  '../share/pratica-core.service';
 
 @Component({
   selector: 'cp-grid-people',
-  templateUrl: './people-grid.component.html',
-  styleUrls: []
+  templateUrl: './people-grid.component.html'
+  
 })
 export class PeopleGridComponent implements OnInit {
    @Output() peopleChoose:EventEmitter<People>=new EventEmitter<People>();

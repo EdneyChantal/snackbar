@@ -8,8 +8,8 @@ import {PraticaCore} from '../share/pratica-core.service';
 
 @Component({
   selector: 'cp-portion-acc',
-  templateUrl: './portion.acc.component.html',
-  styleUrls: []
+  templateUrl: './portion.acc.component.html'
+  
 })
 export class PortionAccrReComponent implements OnChanges {
   @Input('amountAccountS') amountAccountS:string;

@@ -3,8 +3,8 @@ import {PortionAccReceivable} from '../model/portionAccReceivable';
 import {PraticaCore}          from '../share/pratica-core.service';
 @Component({
   selector: 'cp-portion-form-acc',
-  templateUrl: './portion.acc.form.compon.html',
-  styleUrls: []
+  templateUrl: './portion.acc.form.compon.html'
+  
 })
 export class PortionAccrFormComponent implements OnInit {
   @Input('amountAccount') amountAccount:string;
