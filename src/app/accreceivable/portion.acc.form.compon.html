@@ -12,5 +12,8 @@
                 <input type="text" maxlength="100" class="form-control" required [ngModel]="portionAcc.value" (keyup)="portionAcc.value=pcore.textToMoeda($event.target.value)" name="value" placeholder="Valor" /> 
             </div>
             <button type="submit" [disabled]="fportion.form.invalid" class="btn btn-primary">Inserir</button>
+            <div class="alert alert-warning" *ngIf="error!=''" >
+               <button type="button" class="close" aria-label="Close" (click)="error=''" ><span aria-hidden="true">&times;</span></button>
+              {{error}}</div>
           </form>
          

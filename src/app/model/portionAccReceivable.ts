@@ -2,7 +2,7 @@ import {AccountReceivable} from './accountreceivable';
 
 export class PortionAccReceivable {
    id:string;
-   AccReceivable:AccountReceivable;
+   idAccReceivable:string;
    value:number;
    maturityDate:Date;
 }

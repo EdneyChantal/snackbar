@@ -6,10 +6,11 @@ import {PeopleView}        from '../model/peopleview'
 import {NgbDateStruct}     from '@ng-bootstrap/ng-bootstrap'
 import {PraticaCore}       from '../share/pratica-core.service'
 import {DaoService}        from './dao.service';
+import {Observable}        from 'rxjs';
 
 @Injectable()
 export class PeopleDaoService extends DaoService  {
-     
+     nameTable:string='People';
      constructor(private pauthservice:AuthService,private paf:AngularFire,private ppcore:PraticaCore){
         super(pauthservice,paf,ppcore);
      }
@@ -32,11 +33,11 @@ export class PeopleDaoService extends DaoService  {
        q['query'] ={}; 
        q['query']['orderByChild']='name';
        q['query']['startAt']=this.newSubjectQuery();
-       super.loadGlobal('People',promise,q);
+       super.loadGlobal(this.nameTable,promise,q);
      }
      loadSFind(promise:Function) {
         let q = undefined ; 
-        super.loadGlobal('People',promise,q);
+        super.loadGlobal(this.nameTable,promise,q);
      }
      modelToView(pv:People):PeopleView {
 
@@ -94,6 +95,11 @@ export class PeopleDaoService extends DaoService  {
         
         return pm;
 
+     }
+     loadOnePeople(keyPeople:String):Observable<People> {
+        if (this.isChosenCompany()) {  
+          return this.paf.database.object(this.pauthservice.getPathBaseSis()+"/"+this.nameTable+"/"+keyPeople);
+        } 
      }
 
 }

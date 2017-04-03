@@ -14,17 +14,37 @@ import {PraticaCore} from '../share/pratica-core.service';
 export class PortionAccrReComponent implements OnChanges {
   @Input('amountAccountS') amountAccountS:string;
   @Input('allowInclude') allowInclude:Boolean;
+  @Input('portionChosen') portionChosen:Array<PortionAccReceivable>;
   @Output('AllowChangeAmount') allowchangeAmount:EventEmitter<Boolean>=new EventEmitter<Boolean>();
+  @Output('AllowSave') allowSave:EventEmitter<Array<PortionAccReceivable>>=new EventEmitter<Array<PortionAccReceivable>>();
+  @Output('dontSave')  dontSave:EventEmitter<Boolean>=new EventEmitter<Boolean>();
+
   openForm:Boolean=false;
   portionArray:Array<PortionAccReceivable>=new Array();
   amountPortion:number=0;
   constructor(private pcore:PraticaCore, private pDao:PortionAccDaoService) { }
 
   ngOnChanges(changes:SimpleChanges) {
+      if (changes['portionChosen'] && changes['portionChosen'].currentValue) {
+         this.portionArray = changes['portionChosen'].currentValue;
+         this.amountPortion = 0 ;
+         this.portionArray.forEach(value=>this.amountPortion+=value.value);
+         this.allowSave.emit(this.portionArray);
 
+      }
 
   }
-
+  procDel(ind){
+    let e= this.portionArray[ind];
+    this.amountPortion -= e.value;
+    this.portionArray.splice(ind,1);
+    if (this.portionArray.length = 0) {
+       this.allowchangeAmount.emit(true);
+    } 
+    if (this.amountPortion!=this.pcore.maskToNumber(this.amountAccountS)) {
+        this.dontSave.emit(true);
+    }
+  }
 
   toogleForm() {
     if (!this.openForm && (this.amountPortion < this.pcore.maskToNumber(this.amountAccountS))) {
@@ -46,6 +66,13 @@ export class PortionAccrReComponent implements OnChanges {
      if (this.portionArray.length > 0) {
        this.allowchangeAmount.emit(false);
      } 
+     if (this.amountPortion==this.pcore.maskToNumber(this.amountAccountS)) {
+       this.dontSave.emit(false);
+        this.allowSave.emit(this.portionArray);
+     }
+
+
+
   }
 
 }

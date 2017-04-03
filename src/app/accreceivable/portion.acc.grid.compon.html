@@ -4,6 +4,7 @@
         <th>#</th>
         <th>Vencimento</th>
         <th>Valor</th>
+        <th></th>
         </tr>
     </thead>
     <tbody>
@@ -11,6 +12,7 @@
         <td>{{i+1}}</td>
         <td>{{portion.maturityDate | date }}</td>
         <td class="text-right">{{portion.value/100 | currency:'BRL':true}}</td>
+        <td><button class="btn btn-danger btn-sm text-gray-dark" (click)="doDelete(i)">Excluir</button></td>
         </tr>
     </tbody>
     </table>   

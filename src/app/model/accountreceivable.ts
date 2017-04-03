@@ -2,7 +2,7 @@ import {People} from './people';
 
 export class AccountReceivable {
    id:string;
-   people:People;
+   idPeople:string;
    idDocument:string;
    namePeople:string;
    amount:number;

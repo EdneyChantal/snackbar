@@ -21,8 +21,9 @@
                     <span class="input-group-addon">Valor</span> 
                    <input type="text" [disabled]="!vallowChaValue" required="true" maxlength="100" class="form-control" [ngModel]="account.amount" (keyup)="account.amount=pcore.textToMoeda($event.target.value)" name="amount" placeholder="Valor" /> 
                 </div>
+                <button type="submit" [disabled]="faccreceivable.form.invalid || dontSave" class="btn btn-primary">Gravar</button>
             </form>
-            <cp-portion-acc [allowInclude]="faccreceivable.form.valid" [amountAccountS]="account.amount" (AllowChangeAmount)="vallowChaValue=$event"  ></cp-portion-acc>    
+            <cp-portion-acc [portionChosen]="portionArrayCh" (dontSave)="dontSave=$event" (AllowSave)="allowSave($event)" [allowInclude]="faccreceivable.form.valid" [amountAccountS]="account.amount" (AllowChangeAmount)="vallowChaValue=$event"  ></cp-portion-acc>    
             </div>
         </div>
    </div>

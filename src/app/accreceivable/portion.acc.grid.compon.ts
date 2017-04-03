@@ -1,4 +1,4 @@
-import { Component, OnInit,Input,OnChanges,SimpleChanges } from '@angular/core';
+import { Component, OnInit,Input,OnChanges,SimpleChanges,Output,EventEmitter} from '@angular/core';
 import {PortionAccReceivable} from '../model/portionAccReceivable';
 
 
@@ -9,10 +9,13 @@ import {PortionAccReceivable} from '../model/portionAccReceivable';
 })
 export class PortionAccrGridComponent implements OnChanges {
   @Input('arrayPortion') arrayPortion:Array<PortionAccReceivable>;
-  
+  @Output('deleteAct') evDoDelete:EventEmitter<number>=new EventEmitter<number>();
   
   constructor() { }
 
+  doDelete(i:number) {
+    this.evDoDelete.emit(i);
+  }
   ngOnChanges(changes:SimpleChanges) {
     //console.log(changes['arrayPortion'].currentValue);
     //if (changes['arrayPortion'].currentValue) {
