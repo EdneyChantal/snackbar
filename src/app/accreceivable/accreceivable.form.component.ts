@@ -41,11 +41,14 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
      }
   }
   loadObjects(acc:AccountReceivable) {
+     
      this.account=this.accDao.modelToView(acc);
      let sing1=this.peoDao.loadOnePeople(acc.idPeople);
+     debugger
      let sing2=this.porDao.loadOfAccount(acc.id);
      let singz = Observable.zip(sing1,sing2);
      singz.subscribe(arr=>{
+       console.log(arr);
        this.account.people = arr[0];
        this.portionArrayCh = arr[1];
        this.vallowChaValue = false;
@@ -69,15 +72,20 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
   onSubmit() {
     
      let acc:AccountReceivable=new AccountReceivable();
+     let obm:Observable<any>;
+     acc = this.accDao.viewToModel(this.account);
      if (this.chosenAccount) {
         acc.id = this.chosenAccount.id;
+        let ob1 = this.accDao.insertObservable(acc);
+        let ob2 = this.porDao.deleteOfAccount(acc.id);
+        let ob3 = this.porObjDao.insertArray(acc.id,this.portionArray);      
+        obm = Observable.zip(ob1,ob2,ob3).single();
      } else {
          acc.id= this.pcore.geraId();
+         let ob1 = this.accDao.insertObservable(acc);
+         let ob2 = this.porObjDao.insertArray(acc.id,this.portionArray);      
+         obm = Observable.zip(ob1,ob2).single();
      }    
-     acc = this.accDao.viewToModel(this.account);
-     let ob1 = this.accDao.insertObservable(acc);
-     let ob2 = this.porObjDao.insertArray(acc.id,this.portionArray);      
-     let obm = Observable.zip(ob1,ob2).single();
      obm.subscribe(()=>this.eeSaved.emit(true));
   }
 

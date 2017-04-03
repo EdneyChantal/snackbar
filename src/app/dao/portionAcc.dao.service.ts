@@ -32,8 +32,23 @@ export class PortionAccDaoService extends DaoService  {
           q['query']['orderByChild']='idAccReceivable';
           q['query']['equalTo']=keyAccount;
           return  this.paf.database.list(this.pauthservice.getPathBaseSis()+"/"+this.nameTable,q);
-        } 
-        return null;
+        } else {
+           return null;
+        }
+     }
+     deleteOfAccount(keyAccount:string):Observable<any> {
+        if (!this.isChosenCompany()) {  
+           return null;
+        }
+        let q = {} ; 
+        q['query'] ={}; 
+        q['query']['orderByChild']='idAccReceivable';
+        q['query']['equalTo']=keyAccount;
+        let ob1 = this.paf.database.list(this.pauthservice.getPathBaseSis()+"/"+this.nameTable,q);
+        let ob2 = Observable.fromPromise(ob1.remove() as Promise<void>);
+        let ob3 = ob2.withLatestFrom(ob1);
+        return ob3;   
+
      }
      
 } 
