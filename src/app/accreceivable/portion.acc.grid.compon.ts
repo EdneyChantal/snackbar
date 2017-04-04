@@ -14,6 +14,7 @@ export class PortionAccrGridComponent implements OnChanges {
   constructor() { }
 
   doDelete(i:number) {
+    debugger;
     this.evDoDelete.emit(i);
   }
   ngOnChanges(changes:SimpleChanges) {

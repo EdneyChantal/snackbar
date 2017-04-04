@@ -20,7 +20,7 @@ export class PortionAccrReComponent implements OnChanges {
   @Output('dontSave')  dontSave:EventEmitter<Boolean>=new EventEmitter<Boolean>();
 
   openForm:Boolean=false;
-  portionArray:Array<PortionAccReceivable>=new Array();
+  portionArray:Array<PortionAccReceivable>=new Array<PortionAccReceivable>();
   amountPortion:number=0;
   constructor(private pcore:PraticaCore, private pDao:PortionAccDaoService) { }
 
@@ -35,6 +35,7 @@ export class PortionAccrReComponent implements OnChanges {
 
   }
   procDel(ind){
+    debugger
     let e= this.portionArray[ind];
     this.amountPortion -= e.value;
     this.portionArray.splice(ind,1);

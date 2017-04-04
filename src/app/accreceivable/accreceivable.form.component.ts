@@ -44,11 +44,10 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
      
      this.account=this.accDao.modelToView(acc);
      let sing1=this.peoDao.loadOnePeople(acc.idPeople);
-     debugger
      let sing2=this.porDao.loadOfAccount(acc.id);
-     let singz = Observable.zip(sing1,sing2);
+     //sing2.subscribe(ob=>console.log(ob));
+     let singz = sing1.withLatestFrom(sing2);
      singz.subscribe(arr=>{
-       console.log(arr);
        this.account.people = arr[0];
        this.portionArrayCh = arr[1];
        this.vallowChaValue = false;
