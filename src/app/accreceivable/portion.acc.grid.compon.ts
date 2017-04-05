@@ -17,7 +17,7 @@ export class PortionAccrGridComponent implements OnChanges {
     this.evDoDelete.emit(i);
   }
   ngOnChanges(changes:SimpleChanges) {
-    console.log(changes['arrayPortion']);
+   // console.log(changes['arrayPortion']);
     //if (changes['arrayPortion'].currentValue) {
       //this.people = this.ctDao.modelToView(changes['chPe'].currentValue);
     //}

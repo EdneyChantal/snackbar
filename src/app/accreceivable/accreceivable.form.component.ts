@@ -25,7 +25,7 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
   vallowChaValue:Boolean=true;
   dontSave:Boolean=true;
 
-  portionArray:Array<PortionAccReceivable>;
+  portionArrayM:Array<PortionAccReceivable>;
   portionArrayCh:Array<PortionAccReceivable>;
 
   constructor(private pcore:PraticaCore,
@@ -50,6 +50,7 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
        this.account.people = arr[0];
        this.portionArrayCh = arr[1];
        this.vallowChaValue = false;
+       this.portionArrayM = arr[1];
        this.dontSave = false;
      },err=>console.log(err));
 
@@ -65,7 +66,8 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
     this.vallowChaValue = val;
   }
   allowSave(pportionArray:Array<PortionAccReceivable>) {
-   this.portionArray = pportionArray;
+   this.portionArrayM = pportionArray;
+   
   }
   onSubmit() {
     
@@ -76,15 +78,16 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
         acc.id = this.chosenAccount.id;
         let ob1 = this.accDao.insertObservable(acc);
         let ob2 = this.porDao.deleteOfAccount(acc.id);
-        let ob3 = this.porObjDao.insertArray(acc.id,this.portionArray);      
-        obm = Observable.zip(ob1,ob2,ob3).single();
+        let ob3 = this.porObjDao.insertArray(acc.id,this.portionArrayM);      
+        obm = Observable.zip(ob1,ob2,ob3);
      } else {
          acc.id= this.pcore.geraId();
          let ob1 = this.accDao.insertObservable(acc);
-         let ob2 = this.porObjDao.insertArray(acc.id,this.portionArray);      
-         obm = Observable.zip(ob1,ob2).single();
+         let ob2 = this.porObjDao.insertArray(acc.id,this.portionArrayM);      
+         obm = Observable.zip(ob1,ob2);
      }    
-     obm.subscribe(()=>this.eeSaved.emit(true));
+     obm.subscribe((obj)=>{
+       this.eeSaved.emit(true);});
   }
 
   ngOnInit() {

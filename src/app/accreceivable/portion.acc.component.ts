@@ -22,17 +22,17 @@ export class PortionAccrReComponent implements OnChanges {
   
 
   openForm:Boolean=false;
-  portionArray:Array<PortionAccReceivable>=new Array<PortionAccReceivable>();
+  portionArray=[];
   amountPortion:number=0;
   constructor(private pcore:PraticaCore, private pDao:PortionAccDaoService) { }
 
   ngOnChanges(changes:SimpleChanges) {
       if (changes['portionChosen'] && changes['portionChosen'].currentValue) {
-         debugger;
+         
          this.portionArray = changes['portionChosen'].currentValue;
          this.amountPortion = 0 ;
          this.portionArray.forEach(value=>this.amountPortion+=value.value);
-         this.allowSave.emit(this.portionArray);
+         
 
       }
 
@@ -41,13 +41,15 @@ export class PortionAccrReComponent implements OnChanges {
     
     let e= this.portionArray[ind];
     this.amountPortion -= e.value;
-    let x = this.portionArray.filter((value,index)=>index!=ind);
-    this.portionArray = x;
-    if (this.portionArray.length = 0) {
+    this.portionArray =  this.portionArray.filter((value,index)=>index!=ind);
+    if (this.portionArray.length === 0) {
        this.allowchangeAmount.emit(true);
     } 
     if (this.amountPortion!=this.pcore.maskToNumber(this.amountAccountS)) {
         this.dontSave.emit(true);
+    } else {
+      this.dontSave.emit(false);
+      this.allowSave.emit(this.portionArray);
     }
   }
 
