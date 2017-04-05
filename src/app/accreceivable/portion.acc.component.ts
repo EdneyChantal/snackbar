@@ -5,6 +5,7 @@ import {PortionAccReceivable} from '../model/portionAccReceivable';
 import {PortionAccDaoService} from '../dao/portionAcc.dao.service';
 import {AccReceivableService} from '../dao/accreceivable.dao.service';
 import {PraticaCore} from '../share/pratica-core.service';
+import {Observable} from 'rxjs'
 
 @Component({
   selector: 'cp-portion-acc',
@@ -18,6 +19,7 @@ export class PortionAccrReComponent implements OnChanges {
   @Output('AllowChangeAmount') allowchangeAmount:EventEmitter<Boolean>=new EventEmitter<Boolean>();
   @Output('AllowSave') allowSave:EventEmitter<Array<PortionAccReceivable>>=new EventEmitter<Array<PortionAccReceivable>>();
   @Output('dontSave')  dontSave:EventEmitter<Boolean>=new EventEmitter<Boolean>();
+  
 
   openForm:Boolean=false;
   portionArray:Array<PortionAccReceivable>=new Array<PortionAccReceivable>();
@@ -26,6 +28,7 @@ export class PortionAccrReComponent implements OnChanges {
 
   ngOnChanges(changes:SimpleChanges) {
       if (changes['portionChosen'] && changes['portionChosen'].currentValue) {
+         debugger;
          this.portionArray = changes['portionChosen'].currentValue;
          this.amountPortion = 0 ;
          this.portionArray.forEach(value=>this.amountPortion+=value.value);
@@ -35,10 +38,11 @@ export class PortionAccrReComponent implements OnChanges {
 
   }
   procDel(ind){
-    debugger
+    
     let e= this.portionArray[ind];
     this.amountPortion -= e.value;
-    this.portionArray.splice(ind,1);
+    let x = this.portionArray.filter((value,index)=>index!=ind);
+    this.portionArray = x;
     if (this.portionArray.length = 0) {
        this.allowchangeAmount.emit(true);
     } 

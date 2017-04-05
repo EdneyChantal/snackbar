@@ -41,7 +41,6 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
      }
   }
   loadObjects(acc:AccountReceivable) {
-     
      this.account=this.accDao.modelToView(acc);
      let sing1=this.peoDao.loadOnePeople(acc.idPeople);
      let sing2=this.porDao.loadOfAccount(acc.id);

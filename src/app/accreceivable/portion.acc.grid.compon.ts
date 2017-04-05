@@ -14,11 +14,10 @@ export class PortionAccrGridComponent implements OnChanges {
   constructor() { }
 
   doDelete(i:number) {
-    debugger;
     this.evDoDelete.emit(i);
   }
   ngOnChanges(changes:SimpleChanges) {
-    //console.log(changes['arrayPortion'].currentValue);
+    console.log(changes['arrayPortion']);
     //if (changes['arrayPortion'].currentValue) {
       //this.people = this.ctDao.modelToView(changes['chPe'].currentValue);
     //}
