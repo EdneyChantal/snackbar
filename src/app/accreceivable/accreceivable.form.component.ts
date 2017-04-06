@@ -8,7 +8,7 @@ import {People}           from '../model/people';
 import {AccReceivableService} from '../dao/accreceivable.dao.service';
 import {PortionAccDaoObjService} from '../dao/portionAcc.daoObj.service';
 import {PortionAccDaoService} from '../dao/portionAcc.dao.service';
-import {Observable} from 'rxjs';
+import {Observable,Subscription} from 'rxjs';
 import 'rxjs/add/operator/single';
 
 @Component({
@@ -35,7 +35,6 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
              private peoDao:PeopleDaoService) { }
   
   ngOnChanges(changes:SimpleChanges) {
-    
     if (changes['chosenAccount'].currentValue) {
        this.loadObjects(changes['chosenAccount'].currentValue);
      }
@@ -43,17 +42,30 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
   loadObjects(acc:AccountReceivable) {
      this.account=this.accDao.modelToView(acc);
      let sing1=this.peoDao.loadOnePeople(acc.idPeople);
+     sing1.subscribe(obj=>{
+        this.account.people= obj;
+     })
      let sing2=this.porDao.loadOfAccount(acc.id);
-     //sing2.subscribe(ob=>console.log(ob));
-     let singz = sing1.withLatestFrom(sing2);
-     singz.subscribe(arr=>{
+     sing2.subscribe({next:ob=>{this.portionArrayCh = ob;
+         this.portionArrayM = ob;
+         this.portionArrayCh = ob;
+         this.dontSave=false;
+         this.vallowChaValue = false;
+         }
+    });
+
+
+    /* let singz = sing1.withLatestFrom(sing2);
+     let sub:Subscription;
+     sub = singz.subscribe(arr=>{
        this.account.people = arr[0];
        this.portionArrayCh = arr[1];
        this.vallowChaValue = false;
        this.portionArrayM = arr[1];
        this.dontSave = false;
-     },err=>console.log(err));
-
+     },err=>console.log(err));*/
+     
+ 
   }
 
 
@@ -70,7 +82,7 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
    
   }
   onSubmit() {
-    
+     debugger
      let acc:AccountReceivable=new AccountReceivable();
      let obm:Observable<any>;
      acc = this.accDao.viewToModel(this.account);
@@ -79,12 +91,12 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
         let ob1 = this.accDao.insertObservable(acc);
         let ob2 = this.porDao.deleteOfAccount(acc.id);
         let ob3 = this.porObjDao.insertArray(acc.id,this.portionArrayM);      
-        obm = Observable.zip(ob1,ob2,ob3);
+        obm = Observable.concat(ob1,ob3);
      } else {
          acc.id= this.pcore.geraId();
          let ob1 = this.accDao.insertObservable(acc);
          let ob2 = this.porObjDao.insertArray(acc.id,this.portionArrayM);      
-         obm = Observable.zip(ob1,ob2);
+         obm = Observable.concat(ob1,ob2);
      }    
      obm.subscribe((obj)=>{
        this.eeSaved.emit(true);});
