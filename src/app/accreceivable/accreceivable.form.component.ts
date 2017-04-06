@@ -88,10 +88,11 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
      acc = this.accDao.viewToModel(this.account);
      if (this.chosenAccount) {
         acc.id = this.chosenAccount.id;
-        let ob1 = this.accDao.insertObservable(acc);
+        //let ob1 = this.accDao.insertObservable(acc);
         let ob2 = this.porDao.deleteOfAccount(acc.id);
-        let ob3 = this.porObjDao.insertArray(acc.id,this.portionArrayM);      
-        obm = Observable.concat(ob1,ob3);
+        //let ob3 = this.porObjDao.insertArray(acc.id,this.portionArrayM);      
+        //obm = Observable.concat(ob1,ob2,ob3);
+        obm = ob2
      } else {
          acc.id= this.pcore.geraId();
          let ob1 = this.accDao.insertObservable(acc);
@@ -99,6 +100,7 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
          obm = Observable.concat(ob1,ob2);
      }    
      obm.subscribe((obj)=>{
+       console.log(obj);
        this.eeSaved.emit(true);});
   }
 
