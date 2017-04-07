@@ -82,7 +82,6 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
    
   }
   onSubmit() {
-     debugger
      let acc:AccountReceivable=new AccountReceivable();
      let obm:Observable<any>;
      acc = this.accDao.viewToModel(this.account);

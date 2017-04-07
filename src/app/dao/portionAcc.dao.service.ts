@@ -11,6 +11,8 @@ import {Observable} from 'rxjs'
 @Injectable()
 export class PortionAccDaoService extends DaoService  {
      nameTable:string='PortionAccountReceivable';
+     ob1:FirebaseListObservable<Array<PortionAccReceivable>>;
+
      constructor(private pauthservice:AuthService,private paf:AngularFire,private ppcore:PraticaCore){
         super(pauthservice,paf,ppcore);
      }
@@ -40,20 +42,19 @@ export class PortionAccDaoService extends DaoService  {
         if (!this.isChosenCompany()) {  
            return null;
         }
-        debugger;
         let q = {} ; 
         q['query'] ={}; 
         q['query']['orderByChild']='idAccReceivable';
         q['query']['equalTo']=keyAccount;
-        let ob1:FirebaseListObservable<Array<PortionAccReceivable>>= this.paf.database.list(this.pauthservice.getPathBaseSis()+"/"+this.nameTable,q);
-        let result:Array<PortionAccReceivable>;
-               //ob2= ob1.map((value,index)=>{Observable.fromPromise(ob1.update(value.id,{}) as Promise<any>)});
-        return ob2.switch();
+        this.ob1= this.paf.database.list(this.pauthservice.getPathBaseSis()+"/"+this.nameTable,q);
+     
+        let ob2 = this.ob1.map((value,index)=>this.deleteArray(value));
+        return Observable.concat(this.ob1,ob2);
      }
-     deleteArray(f1:FirebaseListObservable<Array<PortionAccReceivable>>,arr:Array<PortionAccReceivable>):Observable<any>{
-        let otx = arr.map(value=>Observable.fromPromise(f1.update(value.id,{}) as Promise<any>));
-        console.log(otx);
-
+     deleteArray(arr:Array<PortionAccReceivable>):Observable<any>{
+       console.log('meu'+arr);
+        let otx = arr.map(value=>Observable.fromPromise(this.ob1.remove(value.id) as Promise<any>));
+        return Observable.concat(...otx);
      }
      
 } 
