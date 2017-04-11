@@ -46,14 +46,21 @@ export class PortionAccDaoService extends DaoService  {
         q['query'] ={}; 
         q['query']['orderByChild']='idAccReceivable';
         q['query']['equalTo']=keyAccount;
-        this.ob1= this.paf.database.list(this.pauthservice.getPathBaseSis()+"/"+this.nameTable,q);
-     
+        let ob1= this.paf.database.list(this.pauthservice.getPathBaseSis()+"/"+this.nameTable,q);
+        let arrOb:Array<Observable<any>>;
+        let obG
+
+        ob1.subscribe({next:(arr)=>{
+          arrOb = arr.map(value=>Observable.fromPromise(ob1.remove(value.id) as Promise<any>));
+         },complete:()=>})
+        
+        
         let ob2 = this.ob1.map((value,index)=>this.deleteArray(value));
         return Observable.concat(this.ob1,ob2);
      }
-     deleteArray(arr:Array<PortionAccReceivable>):Observable<any>{
+     deleteArray(pob:FirebaseListObservable<any>,arr:Array<PortionAccReceivable>):Observable<any>{
        console.log('meu'+arr);
-        let otx = arr.map(value=>Observable.fromPromise(this.ob1.remove(value.id) as Promise<any>));
+        let otx = arr.map(value=>Observable.fromPromise(pob.remove(value.id) as Promise<any>));
         return Observable.concat(...otx);
      }
      
