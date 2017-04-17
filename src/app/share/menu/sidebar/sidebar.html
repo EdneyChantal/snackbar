@@ -1,12 +1,29 @@
-<button class="btn btn-default" id="toggle-sidebar" type="button" (click)="eventCalled()">
+<button class="btn btn-default" id="mytoggle-sidebar" type="button" (click)="eventCalled()">
     &#9776;
 </button>
-<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
+<nav class="sidebar mysidebar" [ngClass]="{sidebarPushRight: isActive}">
     <ul class="list-group">
         <a *ngFor="let itemM of xitensMenu"  routerLink="{{itemM.link}}" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw {{itemM.classIcon}}"></i> {{itemM.name}}
         </a>
+        <div *ngFor="let itemM of xitensMenuG"> 
+          <a  class="list-group-item" (click)="addExpandClass(itemM.flag)" >
+               <span><i class="fa fa-fw {{itemM.classIcon}}"></i> &nbsp; {{itemM.name}}</span>
+          </a>
+          <li *ngIf="showMenu===itemM.flag">
+            <ul class="submenu">
+                <li *ngFor="let itemC of itemM.childreen">
+                    <a routerLink="{{itemC.link}}"><span><i class="fa fa-fw {{itemC.classIcon}}"></i>{{itemC.name}}</span></a>
+                </li>
+             </ul>
+           </li>
+        </div>
 
+
+
+
+       
+        
 
 
        <!-- <a routerLink="/dashboard/home" [routerLinkActive]="['router-link-active']" class="list-group-item">

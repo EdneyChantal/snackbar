@@ -6,6 +6,7 @@ import {HomeComponent}      from './share/menu/home.component';
 import {AuthGuard}       from './share/auth-guard.service';
 import {PeopleRoutes} from './people/people.route';
 import {AccReceivableRoute}  from './accreceivable/accreceivable.route';
+import {AccountPlanRoutes} from './accountplan/accountplan.route'
 
 const menuRoutes: Routes = [
   {
@@ -17,12 +18,12 @@ const menuRoutes: Routes = [
         component:HomeComponent,
   canActivateChild:[AuthGuard] },
         ...PeopleRoutes,
-        ...AccReceivableRoute/*
+        ...AccReceivableRoute,
+        ...AccountPlanRoutes
+         /*
         ...ParameterRoutes,
         ...PortariaRoutes*/
        ],
-    
-    
   }
 ];
 

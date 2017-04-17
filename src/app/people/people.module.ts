@@ -6,12 +6,15 @@ import {PeopleDaoService} from '../dao/people.dao.service';
 import {PeopleFormComponent} from './people-form.component';
 import {PeopleGridComponent} from './people-grid.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { TreeModule } from 'angular-tree-component';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    TreeModule
   ],
   declarations: [PeopleComponent,PeopleFormComponent,PeopleGridComponent],
   providers:[PeopleDaoService],

@@ -9,6 +9,7 @@ import {AccReceivableService} from '../dao/accreceivable.dao.service';
 import {PortionAccDaoObjService} from '../dao/portionAcc.daoObj.service';
 import {PortionAccDaoService} from '../dao/portionAcc.dao.service';
 import {Observable,Subscription} from 'rxjs';
+import {EventPortAcc} from './EventActPortAcc';
 import 'rxjs/add/operator/single';
 
 @Component({
@@ -27,6 +28,7 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
 
   portionArrayM:Array<PortionAccReceivable>;
   portionArrayCh:Array<PortionAccReceivable>;
+  eventPortAcc:EventPortAcc;
 
   constructor(private pcore:PraticaCore,
              private accDao:AccReceivableService,
@@ -54,18 +56,6 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
          }
     });
 
-
-    /* let singz = sing1.withLatestFrom(sing2);
-     let sub:Subscription;
-     sub = singz.subscribe(arr=>{
-       this.account.people = arr[0];
-       this.portionArrayCh = arr[1];
-       this.vallowChaValue = false;
-       this.portionArrayM = arr[1];
-       this.dontSave = false;
-     },err=>console.log(err));*/
-     
- 
   }
 
 
@@ -77,8 +67,10 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
   disableValue(val:Boolean) {
     this.vallowChaValue = val;
   }
-  allowSave(pportionArray:Array<PortionAccReceivable>) {
-   this.portionArrayM = pportionArray;
+  allowSave(event:EventPortAcc) {
+   
+   this.eventPortAcc =event;
+   this.portionArrayM = event.portionArray;
    
   }
   onSubmit() {
@@ -87,11 +79,11 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
      acc = this.accDao.viewToModel(this.account);
      if (this.chosenAccount) {
         acc.id = this.chosenAccount.id;
-        //let ob1 = this.accDao.insertObservable(acc);
-        let ob2 = this.porDao.deleteOfAccount(acc.id);
-        //let ob3 = this.porObjDao.insertArray(acc.id,this.portionArrayM);      
-        //obm = Observable.concat(ob1,ob2,ob3);
-        obm = ob2
+        let ob1 = this.accDao.insertObservable(acc);
+        let ob2 = this.porDao.deleteOfAccount(acc.id,this.eventPortAcc.portTodelete);
+        let ob3 = this.porObjDao.insertArray(acc.id,this.eventPortAcc.portToInclude);      
+        obm = Observable.concat(ob1,ob2,ob3);
+       //obm= ob2;
      } else {
          acc.id= this.pcore.geraId();
          let ob1 = this.accDao.insertObservable(acc);
@@ -99,7 +91,6 @@ export class AccreceivableFormComponent implements OnInit,OnChanges {
          obm = Observable.concat(ob1,ob2);
      }    
      obm.subscribe((obj)=>{
-       console.log(obj);
        this.eeSaved.emit(true);});
   }
 

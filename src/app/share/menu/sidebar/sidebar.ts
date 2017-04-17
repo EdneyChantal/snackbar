@@ -11,9 +11,10 @@ export class SidebarComponent {
 	isActive = false;
 	showMenu: string = '';
 	xitensMenu;
+	xitensMenuG;
     constructor(@Inject('APP_CONFIG') private config: AppConfig){
-         this.xitensMenu = config.itensMenu;
-
+         this.xitensMenu = config.itensMenu.filter(value=>value.childreen.length===0);
+		 this.xitensMenuG = config.itensMenu.filter(value=>value.childreen.length!==0);
 	}
 
 	eventCalled() {

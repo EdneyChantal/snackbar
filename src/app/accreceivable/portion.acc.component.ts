@@ -5,7 +5,7 @@ import {PortionAccReceivable} from '../model/portionAccReceivable';
 import {PortionAccDaoService} from '../dao/portionAcc.dao.service';
 import {AccReceivableService} from '../dao/accreceivable.dao.service';
 import {PraticaCore} from '../share/pratica-core.service';
-import {Observable} from 'rxjs'
+import {EventPortAcc} from './EventActPortAcc';
 
 @Component({
   selector: 'cp-portion-acc',
@@ -17,12 +17,13 @@ export class PortionAccrReComponent implements OnChanges {
   @Input('allowInclude') allowInclude:Boolean;
   @Input('portionChosen') portionChosen:Array<PortionAccReceivable>;
   @Output('AllowChangeAmount') allowchangeAmount:EventEmitter<Boolean>=new EventEmitter<Boolean>();
-  @Output('AllowSave') allowSave:EventEmitter<Array<PortionAccReceivable>>=new EventEmitter<Array<PortionAccReceivable>>();
+  @Output('AllowSave') allowSave:EventEmitter<EventPortAcc>=new EventEmitter<EventPortAcc>();
   @Output('dontSave')  dontSave:EventEmitter<Boolean>=new EventEmitter<Boolean>();
   
 
   openForm:Boolean=false;
   portionArray=[];
+  eventAct:EventPortAcc=new EventPortAcc();
   amountPortion:number=0;
   constructor(private pcore:PraticaCore, private pDao:PortionAccDaoService) { }
 
@@ -42,6 +43,21 @@ export class PortionAccrReComponent implements OnChanges {
     let e= this.portionArray[ind];
     this.amountPortion -= e.value;
     this.portionArray =  this.portionArray.filter((value,index)=>index!=ind);
+
+    let isBase:boolean=true;
+    // look if the portion to delete has been write in the database
+    this.eventAct.portToInclude.filter((value,index)=>{
+      if (value.id==e.id) {
+         isBase=false;
+         return false;
+      } 
+      return true;        
+    });
+    if (isBase) {
+      this.eventAct.portTodelete.push(e.id);
+    }
+    this.eventAct.portionArray=this.portionArray;
+
     if (this.portionArray.length === 0) {
        this.allowchangeAmount.emit(true);
     } 
@@ -49,7 +65,7 @@ export class PortionAccrReComponent implements OnChanges {
         this.dontSave.emit(true);
     } else {
       this.dontSave.emit(false);
-      this.allowSave.emit(this.portionArray);
+      this.allowSave.emit(this.eventAct);
     }
   }
 
@@ -62,22 +78,29 @@ export class PortionAccrReComponent implements OnChanges {
       
   }
   ngOnInit() {
+    this.eventAct.portionArray=this.portionArray;
+    this.eventAct.portToInclude=[];
+    this.eventAct.portTodelete=[];
     
   }
   include(portion:Object) {
      let t:PortionAccReceivable;
      t = this.pDao.viewToModel(portion);
+     t.id= this.pcore.geraId();
      this.amountPortion += (t.value);
      this.portionArray.push(t);
+     this.eventAct.portToInclude.push(t);
+     this.eventAct.portionArray=this.portionArray;
      this.openForm=false;
      if (this.portionArray.length > 0) {
        this.allowchangeAmount.emit(false);
      } 
      if (this.amountPortion==this.pcore.maskToNumber(this.amountAccountS)) {
        this.dontSave.emit(false);
-        this.allowSave.emit(this.portionArray);
+        this.allowSave.emit(this.eventAct);
+        
      }
-
+  
 
 
   }

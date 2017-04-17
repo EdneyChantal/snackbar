@@ -6,6 +6,7 @@ import {PraticaCore}       from '../share/pratica-core.service'
 import {PortionAccReceivable}  from '../model/portionAccReceivable';
 import {DaoService} from './dao.service';
 import {Observable} from 'rxjs'
+import {Subject} from 'rxjs';
 
 
 @Injectable()
@@ -38,30 +39,29 @@ export class PortionAccDaoService extends DaoService  {
            return null;
         }
      }
-     deleteOfAccount(keyAccount:string):Observable<any> {
+     deleteOfAccount(keyAccount:string,arrDelete:Array<string>):Observable<any> {
         if (!this.isChosenCompany()) {  
            return null;
         }
         let q = {} ; 
+        let aKeysToDel:Array<string> = arrDelete;
         q['query'] ={}; 
         q['query']['orderByChild']='idAccReceivable';
         q['query']['equalTo']=keyAccount;
         let ob1= this.paf.database.list(this.pauthservice.getPathBaseSis()+"/"+this.nameTable,q);
-        let arrOb:Array<Observable<any>>;
-        let obG
-
-        ob1.subscribe({next:(arr)=>{
-          arrOb = arr.map(value=>Observable.fromPromise(ob1.remove(value.id) as Promise<any>));
-         },complete:()=>})
+        let subDel:Subject<any>=new Subject();
+        let subscription = ob1.subscribe((arr)=>{
+           arr.map(value=>{
+             let keyFound=aKeysToDel.find((keyDel)=>keyDel==value.id);
+             if (keyFound) {
+                 ob1.remove(value.id).then((ok)=>subDel.next('deletou'));
+             } 
+          });
+          subscription.unsubscribe();
+         });
         
-        
-        let ob2 = this.ob1.map((value,index)=>this.deleteArray(value));
-        return Observable.concat(this.ob1,ob2);
+        return subDel;
      }
-     deleteArray(pob:FirebaseListObservable<any>,arr:Array<PortionAccReceivable>):Observable<any>{
-       console.log('meu'+arr);
-        let otx = arr.map(value=>Observable.fromPromise(pob.remove(value.id) as Promise<any>));
-        return Observable.concat(...otx);
-     }
+    
      
 } 
