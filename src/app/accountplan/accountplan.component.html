@@ -3,20 +3,19 @@
 </div>    
 <div *ngIf="ctDao.isChosenCompany()">
 <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <div class="page-header">
                 <h1 class="text-primary">Plano de Contas</h1>
             </div>  
         </div>
-        <div class="col-lg-4">   
-           <button  class="btn btn-primary" (click)="toogleForm()">
-                       <i class="fa fa-plus-square"></i> 
-            </button>
-            <br/>
-        </div>
  </div>
  <div class="row">
      <div class="col-lg-4">
+         <button  class="btn btn-primary" (click)="toogleFplan=!toogleFplan">
+                       <i class="fa fa-plus-square"></i> 
+         </button>
+         <br />
+         <cp-accountplan-form *ngIf="toogleFplan" (salved)="toogleFplan=false"></cp-accountplan-form>
          <cp-accountplan-grid></cp-accountplan-grid>
      </div>
  </div>    

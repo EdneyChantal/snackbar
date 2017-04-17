@@ -1,7 +1,7 @@
 <div class="card card-block">
     <div class="row">
         <div class="col-lg-6">
-            <h4 class="text-success">Plano de Contas Cadastrados</h4>
+            <h4 class="text-success">Planos Existentes</h4>
         </div>
         <div class="col-lg-6">
                 <input type="search"  class="form-control input-sm" placeholder="Pesquisa[enter]" #pesq (keyup.enter)="doSearch(pesq.value)" >
@@ -23,7 +23,9 @@
         <tr *ngFor="let ct of (list | controlPage:ctlGrid)">
         <td></td>
         <td><a href="javascript:void" (click)="chosenAcc(ct)">{{ct.name}}</a></td>
-        <td><button class="btn btn-danger btn-sm text-gray-dark">Excluir</button></td>
+        <td><button class="btn btn-danger btn-xs"><i class="fa fa-minus-circle" aria-hidden="true"></i>
+</button><button class="btn btn-alert btn-xs" click()><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+</button></td>
         </tr>
     </tbody>
         </table>

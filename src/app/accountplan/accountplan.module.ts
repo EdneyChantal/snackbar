@@ -6,6 +6,7 @@ import { AccountPlanComponent} from './accountplan.component';
 import {AccountPlanDaoService} from '../dao/accountplan.dao.service';
 import {AccountPlanGridComponent} from './accountplan.grid.compon';
 import {ControlPagePipe} from '../share/core/pagePipe';
+import {AccountPlanFormComponent} from './accountplan.form.compon';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import {ControlPagePipe} from '../share/core/pagePipe';
     NgbModule,
     FormsModule
   ],
-  declarations: [AccountPlanComponent,AccountPlanGridComponent,ControlPagePipe],
+  declarations: [AccountPlanComponent,AccountPlanGridComponent,
+                 ControlPagePipe,AccountPlanFormComponent],
   providers:[AccountPlanDaoService]
 })
 export class AccountPlanModule { }

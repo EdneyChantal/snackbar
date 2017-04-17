@@ -8,9 +8,10 @@ import {AccountPlanDaoService} from '../dao/accountplan.dao.service';
   templateUrl: './accountplan.component.html'
 })
 export class AccountPlanComponent implements OnInit {
-  
+  toogleFplan:boolean=false;
   constructor(private pcore:PraticaCore,private ctDao:AccountPlanDaoService) { }
 
+  
   ngOnInit() {
   
   }

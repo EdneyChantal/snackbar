@@ -22,6 +22,33 @@ export class AccountPlanDaoService extends DaoService  {
        return this.paf.database.list(this.pauthservice.getPathBaseSis() + '/' + this.nameTable,q);
        
      }
+     insertOne(pap:AccountPlan):Observable<any> {
+       let key:string;
+       let obj={};
+       let sub1:Subject<any>=new Subject();
+       if (pap.id) {
+         key=pap.id;
+       } else {
+         key=this.ppcore.geraId();
+         pap.id=key;
+       }
+       obj[key]={};
+       obj[key]=this.ppcore.prepareModel(pap);
+       let obs1 = this.paf.database.object(this.pauthservice.getPathBaseSis() + '/' + this.nameTable);
+       let subsc1 = obs1.subscribe({next:()=>{
+          obs1.update(obj).then(()=>{
+            sub1.next('inseriu');
+          });
+          subsc1.unsubscribe();
+       },error:(err)=>{
+          sub1.error(err);
+          subsc1.unsubscribe();
+       }
+      });
+      return sub1;
+
+     }
+
 
      constructor(private pauthservice:AuthService,private paf:AngularFire,private ppcore:PraticaCore){
         super(pauthservice,paf,ppcore);
