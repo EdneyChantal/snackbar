@@ -180,6 +180,17 @@ export class PraticaCore {
          }
       }
    }
+   copyObj(pobj:Object):Object{
+      let dest={};
+      for (let i in pobj) {
+         if (pobj.hasOwnProperty(i) && i.substr(0,1) !=='$') {
+            dest[i]={};
+            dest[i]=pobj[i];
+         }
+      }
+      return dest;
+   }
+
    prepareModel(pobj:Object):Object{
       let b:Object={}; 
       for (let i in pobj) {

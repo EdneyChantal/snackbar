@@ -9,6 +9,7 @@ import {AccountPlanDaoService} from '../dao/accountplan.dao.service';
 })
 export class AccountPlanComponent implements OnInit {
   toogleFplan:boolean=false;
+  keyChosenUpdate:string;
   constructor(private pcore:PraticaCore,private ctDao:AccountPlanDaoService) { }
 
   

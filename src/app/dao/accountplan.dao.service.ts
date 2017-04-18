@@ -22,6 +22,9 @@ export class AccountPlanDaoService extends DaoService  {
        return this.paf.database.list(this.pauthservice.getPathBaseSis() + '/' + this.nameTable,q);
        
      }
+     loadOne(key:string):Observable<AccountPlan> {
+       return  this.paf.database.object(this.pauthservice.getPathBaseSis() + '/' + this.nameTable + '/' + key);
+     }
      insertOne(pap:AccountPlan):Observable<any> {
        let key:string;
        let obj={};

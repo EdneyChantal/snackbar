@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Output,EventEmitter } from '@angular/core';
 import {PraticaCore} from '../share/pratica-core.service';
 import {AccountPlanDaoService} from '../dao/accountplan.dao.service';
 import {ParamPagePipe} from '../share/core/paramPagePipe';
@@ -10,6 +10,8 @@ import {AccountPlan} from '../model/accountplan';
   templateUrl: './accountplan.grid.compon.html'
 })
 export class AccountPlanGridComponent implements OnInit {
+  @Output('chosenUpdate')evChoosenUpd:EventEmitter<string>=new EventEmitter<string>();
+  
   reSearch:string;
   ctlGrid:ParamPagePipe=new ParamPagePipe();
   oList:Observable<Array<AccountPlan>>;
@@ -17,6 +19,9 @@ export class AccountPlanGridComponent implements OnInit {
 
   constructor(private pcore:PraticaCore,private ctDao:AccountPlanDaoService) { }
 
+  doUpdate(key) {
+    this.evChoosenUpd.emit(key);
+  }
   ngOnInit() {
      this.ctlGrid.page = 1;
      this.ctlGrid.pageLength = 10;

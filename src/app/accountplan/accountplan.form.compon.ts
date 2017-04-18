@@ -10,7 +10,9 @@ import {AccountPlanDaoService} from '../dao/accountplan.dao.service';
 })
 export class AccountPlanFormComponent implements OnInit,OnChanges {
   @Output('salved') doSave:EventEmitter<string>=new EventEmitter<string>();
+  @Input('chosenUpdate') keyChosenPlan:string;
   plan:AccountPlan=new AccountPlan();
+  title:string="Novo Plano";
   constructor(private pcore:PraticaCore,private acDao:AccountPlanDaoService) {
     
   }
@@ -21,6 +23,16 @@ export class AccountPlanFormComponent implements OnInit,OnChanges {
 
   }
   ngOnChanges(changes:SimpleChanges) {
+     if (changes['keyChosenPlan'].currentValue) {
+       this.acDao.loadOne(changes['keyChosenPlan'].currentValue)
+       .subscribe((pplan)=>{
+         console.log(pplan);
+         this.plan=this.pcore.copyObj(pplan) as AccountPlan;
+         console.log(this.plan);
+        }); 
+       this.title="Alterar Plano";
+    }  
+
   }
 
   ngOnInit() {
