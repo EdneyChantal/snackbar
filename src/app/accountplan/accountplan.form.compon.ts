@@ -26,9 +26,7 @@ export class AccountPlanFormComponent implements OnInit,OnChanges {
      if (changes['keyChosenPlan'].currentValue) {
        this.acDao.loadOne(changes['keyChosenPlan'].currentValue)
        .subscribe((pplan)=>{
-         console.log(pplan);
          this.plan=this.pcore.copyObj(pplan) as AccountPlan;
-         console.log(this.plan);
         }); 
        this.title="Alterar Plano";
     }  

@@ -2,14 +2,14 @@
             <div class="card-block">
               <h3 class="text-success">{{title}}<br></h3>
               <form (ngSubmit)="onSubmit()" #fplan="ngForm" >
-                 
+                 {{diagnostic}}
                 <div class="form-group">
                   <label>Nome do Plano</label>
-                  <input type="text"  minlength="5" maxlength="50" class="form-control"  [(ngModel)]="plan.name"  name="name" required  />
+                  <input type="text"  minlength="5" maxlength="50" class="form-control"  id="name" [(ngModel)]="plan.name"  name="name" required  />
                 </div> 
                 <div class="form-group">
                   <label>Quantidade de Dígitos Nivel</label>
-                  <input type="number"  class="form-control"  [(ngModel)]="plan.digStruct"  name="name" required  />
+                  <input type="number"  class="form-control"  [(ngModel)]="plan.digStruct" id="digStruct" name="digStruct" required  />
                 </div>
 
 
