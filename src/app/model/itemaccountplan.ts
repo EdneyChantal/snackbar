@@ -3,7 +3,7 @@ export class ItemAccountPlan{
     level:number;
     name:string;
     nature:string;
-    stucture:string;
+    structure:string;
     type:string;
     IdaccountPlan:string;
 

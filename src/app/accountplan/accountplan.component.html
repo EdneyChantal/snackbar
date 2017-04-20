@@ -16,7 +16,10 @@
          </button>
          <br />
          <cp-accountplan-form *ngIf="toogleFplan" [chosenUpdate]="keyChosenUpdate" (salved)="toogleFplan=false"></cp-accountplan-form>
-         <cp-accountplan-grid  (chosenUpdate)="keyChosenUpdate=$event;toogleFplan=true;"></cp-accountplan-grid>
+         <cp-accountplan-grid (toShow)="keyShowPlan=$event"  (chosenUpdate)="keyChosenUpdate=$event;toogleFplan=true;"></cp-accountplan-grid>
+     </div>
+     <div class="col-lg-4">
+        <cp-accountplan-itemgrid *ngIf="keyShowPlan" [keyplan]="keyShowPlan"></cp-accountplan-itemgrid>
      </div>
  </div>    
 </div>

@@ -7,15 +7,19 @@ import {AccountPlanDaoService} from '../dao/accountplan.dao.service';
 import {AccountPlanGridComponent} from './accountplan.grid.compon';
 import {ControlPagePipe} from '../share/core/pagePipe';
 import {AccountPlanFormComponent} from './accountplan.form.compon';
+import { TreeModule } from 'angular-tree-component';
+import {AccountPlanItemGridComponent} from './accountplanitemgrid.compon';
+import {ItemAccountPlanDaoService} from '../dao/itemaccplan.dao.service';
 
 @NgModule({
   imports: [
     CommonModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    TreeModule
   ],
   declarations: [AccountPlanComponent,AccountPlanGridComponent,
-                 ControlPagePipe,AccountPlanFormComponent],
-  providers:[AccountPlanDaoService]
+                 ControlPagePipe,AccountPlanFormComponent,AccountPlanItemGridComponent],
+  providers:[AccountPlanDaoService,ItemAccountPlanDaoService]
 })
 export class AccountPlanModule { }

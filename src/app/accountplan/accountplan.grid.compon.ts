@@ -11,13 +11,18 @@ import {AccountPlan} from '../model/accountplan';
 })
 export class AccountPlanGridComponent implements OnInit {
   @Output('chosenUpdate')evChoosenUpd:EventEmitter<string>=new EventEmitter<string>();
-  
+  @Output('toShow') evToShow:EventEmitter<string>=new EventEmitter<string>();
+
   reSearch:string;
   ctlGrid:ParamPagePipe=new ParamPagePipe();
   oList:Observable<Array<AccountPlan>>;
   list:Array<AccountPlan>=new Array<AccountPlan>();
 
   constructor(private pcore:PraticaCore,private ctDao:AccountPlanDaoService) { }
+
+  toShow(key:string) {
+   this.evToShow.emit(key);
+  }
 
   doUpdate(key) {
     this.evChoosenUpd.emit(key);
