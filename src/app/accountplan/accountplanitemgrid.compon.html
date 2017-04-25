@@ -1,3 +1,16 @@
 <div class="card card-block">
-   <tree-root [nodes]="nodes"></tree-root>  
+   <h4>{{title}}</h4> <button class="btn btn-primary" (click)="insert()"><i class="fa fa-plus"></i>
+               <i class="fa fa-level-down"></i>
+   </button>
+
+   <tree-root [nodes]="nodes">
+      <template #treeNodeTemplate let-node="node" let-index="index">
+         <span>{{ node.data.name }}</span>
+         <button class="btn btn-default" (click)="insert(node)"><i class="fa fa-pencil"></i></button>
+         <button class="btn btn-primary" [disabled]="node.data.analytical" (click)="insert(node)"><i class="fa fa-plus"></i>
+            <i class="fa fa-level-down"></i>
+         </button>
+       </template>    
+       
+   </tree-root>  
 </div>

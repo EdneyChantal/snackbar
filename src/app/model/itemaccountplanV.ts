@@ -1,6 +1,6 @@
 import {EAccPlanNature,Eanalytical,ETypeAccPlan} from './ListEnums';
 import {AccountPlan}                             from './accountplan';
-export class ItemAccountPlan{
+export class ItemAccountPlanV {
     analytical:Eanalytical;
     level:number;
     name:string;

@@ -4,4 +4,5 @@ export class NodeTree {
   children:Array<NodeTree>;
   key:string;
   level:number;
+  analytical:string;
 }

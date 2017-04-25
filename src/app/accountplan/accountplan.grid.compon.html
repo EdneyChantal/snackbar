@@ -22,7 +22,7 @@
     <tbody>
         <tr *ngFor="let ct of (list | controlPage:ctlGrid)">
         <td></td>
-        <td><a href="javascript:void" (click)="toShow(ct.id)">{{ct.name}}</a></td>
+        <td><a href="javascript:void" (click)="toShow(ct.id+'$'+ct.name)">{{ct.name}}</a></td>
         <td><button class="btn btn-danger btn-xs"><i class="fa fa-minus-circle" aria-hidden="true"></i>
 </button><button class="btn btn-alert btn-xs" (click)="doUpdate(ct.id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 </button></td>

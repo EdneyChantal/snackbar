@@ -19,7 +19,12 @@
          <cp-accountplan-grid (toShow)="keyShowPlan=$event"  (chosenUpdate)="keyChosenUpdate=$event;toogleFplan=true;"></cp-accountplan-grid>
      </div>
      <div class="col-lg-4">
-        <cp-accountplan-itemgrid *ngIf="keyShowPlan" [keyplan]="keyShowPlan"></cp-accountplan-itemgrid>
+        <cp-accountplan-itemgrid *ngIf="keyShowPlan" (doInsert)="paramInsert=$event;openFormItem=true;" [keyplan]="keyShowPlan"></cp-accountplan-itemgrid>
      </div>
+     
+     <div class="col-lg-4">
+        <cp-accountplan-itemform *ngIf="openFormItem" [paramInsert]="paramInsert" (save)="openFormItem=false" ></cp-accountplan-itemform>
+     </div>
+
  </div>    
 </div>

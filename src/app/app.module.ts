@@ -10,6 +10,11 @@ import { AuthService } from './share/auth.service';
 import { AppComponent } from './app.component';
 import {PeopleModule}  from './people/people.module';
 
+import { ModalModule } from 'angular2-modal';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+
+
+
 //common in core pratica.com
 import {PraticaCore}  from  './share/pratica-core.service'
 import {LoginModule} from './share/login/login.module';
@@ -52,7 +57,9 @@ const myFirebaseAuthConfig = {
     PortionAccRecModule,
     AccountPlanModule,
     AngularFireModule.initializeApp(firebaseConfig,myFirebaseAuthConfig),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    ModalModule.forRoot(),
+    BootstrapModalModule
   ],
   providers: [PraticaCore,{provide:'APP_CONFIG',useValue:snackbarConfig},AuthService],
   bootstrap: [AppComponent]

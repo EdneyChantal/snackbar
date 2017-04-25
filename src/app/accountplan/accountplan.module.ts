@@ -10,6 +10,7 @@ import {AccountPlanFormComponent} from './accountplan.form.compon';
 import { TreeModule } from 'angular-tree-component';
 import {AccountPlanItemGridComponent} from './accountplanitemgrid.compon';
 import {ItemAccountPlanDaoService} from '../dao/itemaccplan.dao.service';
+import {AccountPlanItemFormComponent} from './accountplanitemform.compon';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import {ItemAccountPlanDaoService} from '../dao/itemaccplan.dao.service';
     TreeModule
   ],
   declarations: [AccountPlanComponent,AccountPlanGridComponent,
-                 ControlPagePipe,AccountPlanFormComponent,AccountPlanItemGridComponent],
+                 ControlPagePipe,AccountPlanFormComponent,AccountPlanItemGridComponent,AccountPlanItemFormComponent],
   providers:[AccountPlanDaoService,ItemAccountPlanDaoService]
 })
 export class AccountPlanModule { }
