@@ -34,7 +34,7 @@ export class ItemAccountPlanDaoService extends DaoService  {
     }
     viewToModel(it:ItemAccountPlanV):ItemAccountPlan {
       let ret:ItemAccountPlan=new ItemAccountPlan();
-      ret.analytical=Eanalytical[it.analytical];
+      ret.analytical=(Eanalytical[it.analytical]=='TRUE');
       ret.nature=EAccPlanNature[it.nature];
       ret.type=ETypeAccPlan[it.type];
       ret.level= it.level;
@@ -43,6 +43,22 @@ export class ItemAccountPlanDaoService extends DaoService  {
       ret.IdaccountPlan=it.accountPlan.id;
       return ret;     
 
+    }
+    delete(item:ItemAccountPlan) {
+
+        
+    }
+    insertOne(keyAccPlan:string,it:ItemAccountPlan):Observable<string>{
+      let key:string=this.toKey(it.structure);
+      let sub1:Subject<any>=new Subject();
+      let ob1=this.paf.database.object(this.pauthservice.getPathBaseSis() + '/' + this.nameTable + '/'+ keyAccPlan+'/'+key);
+      let subs1=ob1.subscribe({next:obj=>{
+         ob1.update(it).then(()=>sub1.next('ok')).catch((err)=>sub1.error(err));  
+      },error:(err)=>{
+         sub1.error(err);
+      }
+      });
+      return sub1;
     }
 
     toTreeNode(arr:Array<ItemAccountPlan>,maskFather?:string,levelFather?:number):Array<NodeTree> {

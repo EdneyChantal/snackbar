@@ -40,12 +40,12 @@ export class AccountPlanItemFormComponent implements OnInit,OnChanges {
     this.itemPlan.accountPlan = new AccountPlan();
     this.itemPlan.accountPlan.id=this.paramInsert.keyAccountPlan;
     let x=this.itDao.viewToModel(this.itemPlan);
-    
-
-
-
-
-    this.evSave.emit();
+    let subscr=this.itDao.insertOne(x.IdaccountPlan,x).subscribe({next:()=>{
+          this.evSave.emit();
+        },error:(err)=>{
+          alert(err);
+        }  
+       });
   }
 
   ngOnInit() {

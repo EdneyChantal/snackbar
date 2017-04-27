@@ -48,8 +48,13 @@ export class AccountPlanItemGridComponent implements OnInit,OnChanges {
                  return 0 ;
             }
         });
-        let x= px[px.length-1].structure.split('.');
-        param.lastNumberCod = parseInt(x[x.length-1]);
+        if (px.length>0) {
+            let x= px[px.length-1].structure.split('.');
+            param.lastNumberCod = parseInt(x[x.length-1]);
+        } else {
+           param.lastNumberCod=0;
+        }
+
 
         this.evdoinsert.emit(param);
      } else {
@@ -72,6 +77,19 @@ export class AccountPlanItemGridComponent implements OnInit,OnChanges {
        param.lastNumberCod=parseInt(px[px.length-1].structure);
        this.evdoinsert.emit(param);
      }
+  }
+  delete(node:any) {
+        let param:ParamFormInsert=new ParamFormInsert();
+
+        param.keyAccountPlan = (this.keyplan.split('$'))[0];
+        param.keyFather = node.data.key;
+        param.levelFather = node.data.level;
+        param.lastNumberCod=0;
+       
+
+
+
+
   }
   ngOnChanges(changes:SimpleChanges) {
     if (changes['keyplan'].currentValue) {

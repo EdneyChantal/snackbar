@@ -1,5 +1,5 @@
 export class ItemAccountPlan{
-    analytical:string;
+    analytical:Boolean;
     level:number;
     name:string;
     nature:string;
