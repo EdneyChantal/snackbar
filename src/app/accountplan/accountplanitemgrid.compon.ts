@@ -1,10 +1,12 @@
-import { Component, OnInit,Input,OnChanges,SimpleChanges,EventEmitter,Output } from '@angular/core';
+import {Component, OnInit,Input,OnChanges,SimpleChanges,EventEmitter,Output } from '@angular/core';
 import {PraticaCore} from '../share/pratica-core.service';
 import {ItemAccountPlanDaoService} from '../dao/itemaccplan.dao.service';
 import {ItemAccountPlan} from '../model/itemaccountplan';
 import {NodeTree} from '../model/nodeTree';
+import {FormControl, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {ParamFormInsert} from './ParamFormInsert';
+import {NgSelectModel} from '../model/ngSelectModel';
 
 
 @Component({
@@ -18,6 +20,9 @@ export class AccountPlanItemGridComponent implements OnInit,OnChanges {
   obS:Observable<Array<ItemAccountPlan>>;
   title:string;
   aPlan:Array<ItemAccountPlan>;
+  filtro:string="";
+  options:Array<NgSelectModel>; 
+  form: FormGroup;
 
 
   constructor(private pcore:PraticaCore,private itDao:ItemAccountPlanDaoService) { }
@@ -78,6 +83,15 @@ export class AccountPlanItemGridComponent implements OnInit,OnChanges {
        this.evdoinsert.emit(param);
      }
   }
+  update(node:any) {
+      let param:ParamFormInsert=new ParamFormInsert();
+      param.keyAccountPlan = (this.keyplan.split('$'))[0];
+      param.keyFather = node.data.key;
+      param.levelFather = node.data.level;
+      param.update=true;
+      this.evdoinsert.emit(param);
+
+  }
   delete(node:any) {
         let param:ParamFormInsert=new ParamFormInsert();
 
@@ -86,11 +100,14 @@ export class AccountPlanItemGridComponent implements OnInit,OnChanges {
         param.levelFather = node.data.level;
         param.lastNumberCod=0;
        
+        this.itDao.delete(param.keyAccountPlan,param.keyFather).subscribe(valor=>{
+        },err=>alert(err));
 
 
 
 
   }
+  
   ngOnChanges(changes:SimpleChanges) {
     if (changes['keyplan'].currentValue) {
       let par:string  = changes['keyplan'].currentValue;
@@ -101,8 +118,9 @@ export class AccountPlanItemGridComponent implements OnInit,OnChanges {
       this.obS.subscribe((arr)=>{
          this.aPlan = arr; 
          this.nodes = this.itDao.toTreeNode(arr);
+         this.options = this.itDao.toNgSelectModel(arr);
       });
-
+      
    
 
 
@@ -112,10 +130,9 @@ export class AccountPlanItemGridComponent implements OnInit,OnChanges {
   }
 
   ngOnInit() {
-    
-    
-
-  
-  }
+        this.form = new FormGroup({});
+        this.form.addControl('selectSingle', new FormControl(''));
+        
+    }
   
 }

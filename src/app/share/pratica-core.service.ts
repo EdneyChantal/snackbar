@@ -45,6 +45,8 @@ export class PraticaCore {
        return arrPage;
     }
 
+    
+
 
     textToTime(data:string ):string {
         let retorno:string='';

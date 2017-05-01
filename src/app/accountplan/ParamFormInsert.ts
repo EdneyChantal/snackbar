@@ -3,4 +3,5 @@ export class ParamFormInsert {
    keyFather:string;
    lastNumberCod:number; 
    keyAccountPlan:string;
+   update:Boolean=false;
 }

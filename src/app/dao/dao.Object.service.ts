@@ -16,16 +16,16 @@ export class DaoObjService  {
      closeLoad() {
       this.subscrition.unsubscribe();
      }
-     loadGlobalObserv(table:string,queryOp?:Object ):Observable<any> {
+     loadGlobalObserv(table:string):Observable<any> {
        if (this.isChosenCompany()) {  
-          this.oobject = this.af.database.object(this.authservice.getPathBaseSis()+"/"+table,queryOp);
+          this.oobject = this.af.database.object(this.authservice.getPathBaseSis()+"/"+table);
           return this.oobject;
        } 
 
      }
-     loadGlobal(table:string ,promise?:Function,queryOp?:Object )  {
+     loadGlobal(table:string ,promise?:Function)  {
        if (this.isChosenCompany()) {  
-        this.oobject = this.af.database.object(this.authservice.getPathBaseSis()+"/"+table,queryOp);
+        this.oobject = this.af.database.object(this.authservice.getPathBaseSis()+"/"+table);
         this.subscrition = this.oobject.subscribe({next:oct=>{
              promise(oct);
         }});
@@ -39,14 +39,14 @@ export class DaoObjService  {
        //this.oobject.set(key,).then((a)=>(promise?promise(a):null)).catch((err)=>(reject?reject(err):null));
 
      }
-     update(key:string,pc:Object,promise?:Function,reject?:Function) {
+     updateOne(key:string,pc:Object,promise?:Function,reject?:Function) {
         let ob = {};
         ob[key]= {} ; 
         ob[key]= pc;
         this.oobject.update(ob).then((a)=>(promise?promise(a):null)).catch((err)=>(reject?reject(err):null));
      }
 
-     insertPromise(pc:Object):Promise<any> {
+     insertOnePromise(pc:Object):Promise<any> {
        let key:string;// this.pcore.geraId();
        if (pc['id']) {
          key=pc['id'];
@@ -59,7 +59,7 @@ export class DaoObjService  {
        ob[key]=this.pcore.prepareModel(pc);
        return this.oobject.update(ob);
      }
-     insert(pc:Object,promise?:Function,reject?:Function) {
+     insertOne(pc:Object,promise?:Function,reject?:Function) {
        let key:string;// this.pcore.geraId();
        if (pc['id']) {
          key=pc['id'];
