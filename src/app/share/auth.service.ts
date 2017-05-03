@@ -60,6 +60,9 @@ export class AuthService {
   chooseEstablish(pEstablish) {
     this.chosenEstablish = pEstablish;
   }
+  isChosenCompany():Boolean {
+       return (this.getPathBaseSis()!==null);
+     }  
   chooseCompany(pCompany,promise?:Function) {
     this.display= true 
     this.chosenCompany = pCompany;

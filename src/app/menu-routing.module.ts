@@ -7,7 +7,7 @@ import {AuthGuard}       from './share/auth-guard.service';
 import {PeopleRoutes} from './people/people.route';
 import {AccReceivableRoute}  from './accreceivable/accreceivable.route';
 import {AccountPlanRoutes} from './accountplan/accountplan.route'
-
+import {EstablishmentRoutes} from './share/establishment/establishment.route'
 const menuRoutes: Routes = [
   {
     path: 'menu',
@@ -19,7 +19,8 @@ const menuRoutes: Routes = [
   canActivateChild:[AuthGuard] },
         ...PeopleRoutes,
         ...AccReceivableRoute,
-        ...AccountPlanRoutes
+        ...AccountPlanRoutes,
+        ...EstablishmentRoutes
          /*
         ...ParameterRoutes,
         ...PortariaRoutes*/
