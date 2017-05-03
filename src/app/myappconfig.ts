@@ -17,6 +17,17 @@ const item3:ItemSidebarMenu={classIcon:'fa-list-ol',
                              name:'Plano de Contas',
                              childreen:[],
                              flag:''};
+const item4:ItemSidebarMenu={classIcon:'fa-cog',
+                             link:'/menu/establishment',
+                             name:'Estabelecimento',
+                             childreen:[],
+                             flag:''};                             
+const itemConfig:ItemSidebarMenu={classIcon:'fa-cogs',
+                             link:'',
+                             name:'Configurações',
+                             childreen:[item4],
+                             flag:'Config'};
+
 const itemPlan:ItemSidebarMenu={classIcon:'fa-bar-chart',
                              link:'',
                              name:'Contabilidade',
@@ -35,7 +46,7 @@ export const snackbarConfig: AppConfig = {
   refAppRoot:'BaseCompanys',
   descriptionSidebar:'Gestão de Restaurante',
   pathFigLogo:'assets/img/logo-onguardsystem.png',
-  itensMenu:[itemFinan,itemPlan]
+  itensMenu:[itemFinan,itemPlan,itemConfig]
 };
 
 //export let APP_CONFIG = new OpaqueToken('app.config');
