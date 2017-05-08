@@ -27,6 +27,32 @@
           <input class="form-control" formControlName="cep">
           </label>
         </div>
+        <div class="form-group">
+        <table>
+          <tbody>
+            <tr>
+              <td style="padding-right:30px;">
+        <div class="form-group input-group">
+                     <span class="input-group-addon">Inicio Lançamentos</span> 
+                     <input class="form-control" placeholder="Vencimento (yyyy-mm-dd)" formControlName="datestartwork"
+                                ngbDatepicker #d1="ngbDatepicker"/>
+                        <a href="javascript:;" (click)="d1.toggle()" class="btn btn-primary input-group-addon"><i class="fa fa-calendar-check-o"></i></a>        
+        </div>
+              </td>
+              <td>
+                   <div class="form-group input-group">
+                     <span class="input-group-addon">Fim  Lançamentos</span> 
+                     <input class="form-control" placeholder="Vencimento (yyyy-mm-dd)" formControlName="dateendwork"
+                                ngbDatepicker #d2="ngbDatepicker"/>
+                        <a href="javascript:;" (click)="d2.toggle()" class="btn btn-primary input-group-addon"><i class="fa fa-calendar-check-o"></i></a>        
+        </div>
+
+
+              </td>
+            </tr> 
+          </tbody>
+        </table> 
+        </div>
        </form>
      </div>
  </div>
