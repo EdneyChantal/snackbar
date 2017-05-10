@@ -4,13 +4,15 @@ import {BrowserModule}  from '@angular/platform-browser';
 import  {EstablishmentComponent} from './establishment.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgbModule}     from '@ng-bootstrap/ng-bootstrap';
+import {DynamicQuestionModule} from '../dynamicform/dynamic-question.module';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     BrowserModule,
-    NgbModule],
+    NgbModule,
+    DynamicQuestionModule],
   declarations: [EstablishmentComponent],
   providers:[],
   exports:[]

@@ -25,6 +25,8 @@ import {AccreceivableModule} from './accreceivable/accreceivable.module';
 import {PortionAccRecModule} from './accreceivable/portion.acc.module';
 import {AccountPlanModule} from './accountplan/accountplan.module';
 import {EstablishmentModule} from './share/establishment/establishment.module';
+import {DynamicQuestionModule} from './share/dynamicform/dynamic-question.module';
+
 
 // Must export the config
 const firebaseConfig = {
@@ -60,7 +62,8 @@ const myFirebaseAuthConfig = {
     AngularFireModule.initializeApp(firebaseConfig,myFirebaseAuthConfig),
     NgbModule.forRoot(),
     ModalModule.forRoot(),
-    BootstrapModalModule
+    BootstrapModalModule ,
+    DynamicQuestionModule
   ],
   providers: [PraticaCore,{provide:'APP_CONFIG',useValue:snackbarConfig},AuthService],
   bootstrap: [AppComponent]

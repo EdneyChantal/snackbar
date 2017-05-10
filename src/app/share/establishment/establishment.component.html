@@ -11,7 +11,9 @@
  </div>
  <div class="row">
      <div class="col-lg-8 col-lg-offset-2">
-       <form [formGroup]="establishForm" novalidate>
+         <dynamic-form [questions]="questions"></dynamic-form>
+
+       <!--<form [formGroup]="establishForm" novalidate>
         <div class="form-group">
           <label class="center-block">Nome:
           <input class="form-control" formControlName="establishName">
@@ -53,6 +55,6 @@
           </tbody>
         </table> 
         </div>
-       </form>
+       </form>-->
      </div>
  </div>
