@@ -39,11 +39,22 @@ export class EstablishmentComponent implements OnInit {
        key:'cep',
        label:'Cep',
        required:true,
-       type:'number',      
+       type:'number',
+       maxlength:8,      
        order:3
      }));
-
-
+      this.questions.push(new DateQuestion({
+       key:'datestartwork',
+       label:'Inicio de Atividades',
+       required:true,
+       order:4
+     }));
+      this.questions.push(new DateQuestion({
+       key:'dateendwork',
+       label:'Fim das Atividades',
+       required:true,
+       order:5
+     }));
   }
 
   createForm() {

@@ -11,5 +11,18 @@ export class DynamicFormQuestionComponent {
   @Input() question: QuestionBase<any>;
   @Input() form: FormGroup;
   get isValid() { return (this.form.controls[this.question.key].errors['required'] || this.form.controls[this.question.key].pristine); }
+  isPristine():boolean {
+     return this.form.controls[this.question.key].pristine;
+  }
+  error(type:string):boolean{
+    if ((this.form.controls[this.question.key].errors) &&
+        (this.form.controls[this.question.key].errors[type])) {
+      return true;
+    }
+    return false;
+
+  }
+
+
 }
 
