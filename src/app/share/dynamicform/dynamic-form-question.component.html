@@ -13,9 +13,7 @@
     <!--<input *ngSwitchCase="'DateTextBox'" [formControlName]="question.key" class="form-control" ngbDatepicker #d1="ngbDatepicker"
             [id]="question.key" >
     <a *ngSwitchCase="'DateTextBox'" href="javascript:;" (click)="d1.toggle()" class="btn btn-primary input-group-addon"><i class="fa fa-calendar-check-o"></i></a>-->
-    <material-datepicker *ngSwitchCase="'DateTextBox'" [(date)]="question.value"></material-datepicker>
-    {{question.value}}
-    {{form.get(question.key).value | json }}
+    <material-datepicker *ngSwitchCase="'DateTextBox'" (onSelect)="chooseDate($event)" [(date)]="question.value"></material-datepicker>
   </div> 
    <div class="alert alert-danger alert-dismissible" *ngIf="error('required') && !isPristine()">{{question.label}} é obrigatório</div>
    <div class="alert alert-danger alert-dismissible" *ngIf="error('maxlength') && !isPristine()">{{question.label}} não pode ser maior que {{form.get(question.key).errors.maxlength.requiredLength}}</div>

@@ -14,6 +14,12 @@ export class DynamicFormQuestionComponent {
   isPristine():boolean {
      return this.form.controls[this.question.key].pristine;
   }
+  chooseDate(val){
+    let alt:{}={};
+    alt[this.question.key]=val;
+    this.form.patchValue(alt);
+    this.form.controls[this.question.key].updateValueAndValidity();
+  }
   error(type:string):boolean{
     if ((this.form.controls[this.question.key].errors) &&
         (this.form.controls[this.question.key].errors[type])) {
